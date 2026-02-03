@@ -1491,14 +1491,14 @@
                 save(e.target.name, vals);
                 const hasOther = vals.includes('other');
                 toggleOtherInput(e.target.name, hasOther);
-                markAnswered(e.target);
-                scrollToNextCard(e.target);
+                markAnswered(e.target, vals.length > 0);
+                if(vals.length > 0) scrollToNextCard(e.target);
             });
             document.querySelectorAll('textarea, input[type="text"]').forEach(i => {
                 let t;
-                i.oninput = e => { clearTimeout(t); t = setTimeout(() => { save(e.target.name, e.target.value); if(e.target.value.trim()) markAnswered(e.target); }, 400); };
+                i.oninput = e => { clearTimeout(t); t = setTimeout(() => { save(e.target.name, e.target.value); markAnswered(e.target, !!e.target.value.trim()); }, 400); };
             });
-            document.querySelectorAll('select').forEach(s => s.onchange = e => { save(e.target.name, e.target.value); markAnswered(e.target); });
+            document.querySelectorAll('select').forEach(s => s.onchange = e => { save(e.target.name, e.target.value); markAnswered(e.target, !!e.target.value); });
         }
 
         function goTo(sec) {
@@ -1561,7 +1561,7 @@
             localStorage.setItem('soprano-discovery', JSON.stringify(responses));
         }
 
-        function markAnswered(el) { el.closest('.card')?.classList.add('answered'); }
+        function markAnswered(el, isAnswered) { el.closest('.card')?.classList.toggle('answered', isAnswered); }
 
         function showToast() {
             const t = document.getElementById('toast');
