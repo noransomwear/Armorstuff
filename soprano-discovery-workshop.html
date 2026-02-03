@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soprano Design | MDR Discovery Workshop</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --bg-primary: #0a0f1a; --bg-secondary: #111827; --bg-card: #1a2234; --bg-input: #0d1320; --accent: #6366f1; --accent-light: #818cf8; --accent-glow: rgba(99,102,241,0.15); --text: #f1f5f9; --text-dim: #94a3b8; --text-muted: #64748b; --border: #2d3a52; --success: #10b981; --radius: 12px; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'DM Sans', sans-serif; background: var(--bg-primary); color: var(--text); line-height: 1.6; }
+        .header { position: fixed; top: 0; left: 0; right: 0; background: rgba(10,15,26,0.95); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); z-index: 100; padding: 1rem 2rem; }
+        .header-inner { max-width: 900px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+        .logo { font-family: 'Fraunces', serif; font-weight: 700; font-size: 1.2rem; display: flex; align-items: center; gap: 0.75rem; }
+        .logo-icon { width: 32px; height: 32px; background: linear-gradient(135deg, var(--accent), var(--accent-light)); border-radius: 8px; }
+        .progress { display: flex; align-items: center; gap: 1rem; }
+        .progress-bar { width: 180px; height: 6px; background: var(--bg-card); border-radius: 3px; overflow: hidden; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent-light)); transition: width 0.4s; }
+        .progress-text { font-size: 0.85rem; color: var(--text-dim); }
+        main { max-width: 900px; margin: 0 auto; padding: 6rem 1.5rem 3rem; }
+        .welcome { text-align: center; padding: 2.5rem 2rem; background: var(--bg-card); border-radius: var(--radius); border: 1px solid var(--border); margin-bottom: 2rem; position: relative; }
+        .welcome::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--accent), var(--accent-light)); border-radius: var(--radius) var(--radius) 0 0; }
+        .welcome h1 { font-family: 'Fraunces', serif; font-size: 1.8rem; margin-bottom: 0.75rem; }
+        .welcome p { color: var(--text-dim); max-width: 550px; margin: 0 auto; }
+        .tabs { display: flex; gap: 0.5rem; margin-bottom: 2rem; overflow-x: auto; padding-bottom: 0.5rem; }
+        .tab { padding: 0.7rem 1.2rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); color: var(--text-dim); font-size: 0.9rem; font-weight: 500; cursor: pointer; white-space: nowrap; transition: all 0.2s; }
+        .tab:hover { border-color: var(--accent); color: var(--text); }
+        .tab.active { background: var(--accent-glow); border-color: var(--accent); color: var(--accent-light); }
+        .tab .count { background: var(--bg-primary); padding: 0.1rem 0.5rem; border-radius: 8px; font-size: 0.75rem; margin-left: 0.5rem; }
+        .section { display: none; }
+        .section.active { display: block; animation: fadeIn 0.3s; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; } }
+        .section-header { margin-bottom: 1.5rem; }
+        .section-title { font-family: 'Fraunces', serif; font-size: 1.5rem; margin-bottom: 0.25rem; }
+        .section-desc { color: var(--text-dim); font-size: 0.95rem; }
+        .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem; margin-bottom: 1rem; transition: all 0.2s; }
+        .card:hover { border-color: var(--accent); }
+        .card.answered { border-left: 3px solid var(--success); }
+        .q-num { display: inline-flex; align-items: center; justify-content: center; width: 26px; height: 26px; background: var(--bg-primary); border-radius: 50%; font-size: 0.8rem; font-weight: 600; color: var(--text-muted); margin-right: 0.75rem; flex-shrink: 0; }
+        .card.answered .q-num { background: var(--success); color: white; }
+        .q-label { font-weight: 500; margin-bottom: 1rem; display: flex; }
+        .q-text { flex: 1; }
+        .q-hint { display: block; font-size: 0.85rem; color: var(--text-muted); font-weight: 400; font-style: italic; margin-top: 0.4rem; }
+        textarea, input[type="text"] { width: 100%; background: var(--bg-input); border: 1px solid var(--border); border-radius: 8px; padding: 0.9rem; color: var(--text); font-family: inherit; font-size: 0.95rem; resize: vertical; min-height: 90px; }
+        textarea:focus, input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-glow); }
+        ::placeholder { color: var(--text-muted); }
+        .opts { display: flex; flex-direction: column; gap: 0.6rem; }
+        .opt { display: flex; align-items: center; gap: 0.75rem; padding: 0.9rem; background: var(--bg-input); border: 1px solid var(--border); border-radius: 8px; cursor: pointer; transition: all 0.2s; }
+        .opt:hover { border-color: var(--accent); }
+        .opt.sel { border-color: var(--accent); background: var(--accent-glow); }
+        .opt input { display: none; }
+        .opt-mark { width: 18px; height: 18px; border: 2px solid var(--border); border-radius: 50%; flex-shrink: 0; position: relative; }
+        .opt-mark.check { border-radius: 4px; }
+        .opt.sel .opt-mark { border-color: var(--accent); background: var(--accent); }
+        .opt.sel .opt-mark::after { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 6px; height: 6px; background: white; border-radius: 50%; }
+        .opt-text { flex: 1; font-size: 0.95rem; }
+        .grid-opts { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 0.6rem; }
+        .subsec { background: var(--bg-secondary); border-radius: var(--radius); padding: 1.25rem; margin-bottom: 1.5rem; }
+        .subsec-title { font-weight: 600; font-size: 1.05rem; margin-bottom: 0.4rem; color: var(--accent-light); }
+        .subsec-desc { color: var(--text-dim); font-size: 0.9rem; margin-bottom: 1.25rem; }
+        .nav-btns { display: flex; justify-content: space-between; margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border); gap: 1rem; flex-wrap: wrap; }
+        .btn { padding: 0.8rem 1.5rem; border-radius: 8px; font-family: inherit; font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: all 0.2s; display: inline-flex; align-items: center; gap: 0.5rem; }
+        .btn-sec { background: var(--bg-card); border: 1px solid var(--border); color: var(--text-dim); }
+        .btn-sec:hover { background: var(--bg-secondary); color: var(--text); }
+        .btn-pri { background: linear-gradient(135deg, var(--accent), var(--accent-light)); border: none; color: white; }
+        .btn-pri:hover { transform: translateY(-2px); box-shadow: 0 4px 15px var(--accent-glow); }
+        .save-toast { position: fixed; bottom: 1.5rem; right: 1.5rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 0.8rem 1.2rem; display: flex; align-items: center; gap: 0.6rem; font-size: 0.9rem; opacity: 0; transform: translateY(20px); transition: all 0.3s; z-index: 50; }
+        .save-toast.show { opacity: 1; transform: translateY(0); }
+        .save-toast.saved { border-color: var(--success); color: var(--success); }
+        .complete { text-align: center; padding: 3rem; }
+        .complete-icon { width: 70px; height: 70px; background: var(--success); border-radius: 50%; margin: 0 auto 1.5rem; display: flex; align-items: center; justify-content: center; font-size: 2rem; color: white; }
+        .matrix { width: 100%; border-collapse: collapse; margin-top: 0.5rem; }
+        .matrix th, .matrix td { padding: 0.8rem; text-align: left; border-bottom: 1px solid var(--border); }
+        .matrix th { color: var(--text-muted); font-weight: 500; font-size: 0.85rem; }
+        .matrix select { background: var(--bg-input); border: 1px solid var(--border); border-radius: 6px; padding: 0.5rem; color: var(--text); font-family: inherit; width: 100%; }
+        @media (max-width: 600px) { .header { padding: 0.75rem 1rem; } main { padding: 5rem 1rem 2rem; } .welcome { padding: 1.5rem 1rem; } .welcome h1 { font-size: 1.4rem; } .nav-btns { flex-direction: column; } .btn { justify-content: center; } }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-inner">
+            <div class="logo"><div class="logo-icon"></div>MDR Discovery</div>
+            <div class="progress">
+                <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+                <span class="progress-text" id="progressText">0% complete</span>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="welcome">
+            <h1>Soprano Design Discovery Workshop</h1>
+            <p>Help us understand what's changed in your environment so we can ensure your MDR coverage matches your current infrastructure. Auto-saves as you go.</p>
+        </div>
+
+        <nav class="tabs" id="tabs">
+            <button class="tab active" data-section="acquisitions">Acquisitions <span class="count" id="c-acquisitions">0/8</span></button>
+            <button class="tab" data-section="infrastructure">Infrastructure <span class="count" id="c-infrastructure">0/6</span></button>
+            <button class="tab" data-section="identity">Identity & Access <span class="count" id="c-identity">0/5</span></button>
+            <button class="tab" data-section="platform">Platform <span class="count" id="c-platform">0/5</span></button>
+            <button class="tab" data-section="endpoints">Endpoints <span class="count" id="c-endpoints">0/4</span></button>
+            <button class="tab" data-section="risk">Risk <span class="count" id="c-risk">0/5</span></button>
+            <button class="tab" data-section="operations">Operations <span class="count" id="c-operations">0/5</span></button>
+        </nav>
+
+        <!-- ACQUISITIONS -->
+        <section class="section active" id="s-acquisitions">
+            <div class="section-header">
+                <h2 class="section-title">Post-Acquisition Environment</h2>
+                <p class="section-desc">You've made several acquisitions. We need to understand what's integrated vs. still separate.</p>
+            </div>
+
+            <div class="subsec">
+                <div class="subsec-title">Whispir (Acquired 2024)</div>
+                <p class="subsec-desc">Whispir ran on AWS infrastructure (EC2, S3, CloudFront).</p>
+
+                <div class="card" data-q="acq-1">
+                    <label class="q-label"><span class="q-num">1</span><span class="q-text">What's the current state of Whispir infrastructure?</span></label>
+                    <div class="opts">
+                        <label class="opt"><input type="radio" name="whispir-status" value="migrated"><span class="opt-mark"></span><span class="opt-text">Fully migrated into Soprano infrastructure</span></label>
+                        <label class="opt"><input type="radio" name="whispir-status" value="separate"><span class="opt-mark"></span><span class="opt-text">Still running as separate AWS accounts</span></label>
+                        <label class="opt"><input type="radio" name="whispir-status" value="hybrid"><span class="opt-mark"></span><span class="opt-text">Hybrid - some migrated, some standalone</span></label>
+                        <label class="opt"><input type="radio" name="whispir-status" value="unknown"><span class="opt-mark"></span><span class="opt-text">Not sure / need to check</span></label>
+                    </div>
+                </div>
+
+                <div class="card" data-q="acq-2">
+                    <label class="q-label"><span class="q-num">2</span><span class="q-text">Are Whispir's APIs and customer portal still live and accepting traffic?</span></label>
+                    <div class="opts">
+                        <label class="opt"><input type="radio" name="whispir-apis" value="live"><span class="opt-mark"></span><span class="opt-text">Yes, still accepting traffic</span></label>
+                        <label class="opt"><input type="radio" name="whispir-apis" value="redirected"><span class="opt-mark"></span><span class="opt-text">Redirecting to Soprano Connect</span></label>
+                        <label class="opt"><input type="radio" name="whispir-apis" value="shutdown"><span class="opt-mark"></span><span class="opt-text">Fully shut down</span></label>
+                        <label class="opt"><input type="radio" name="whispir-apis" value="unknown"><span class="opt-mark"></span><span class="opt-text">Not sure</span></label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="subsec">
+                <div class="subsec-title">Ubisend / Conversational AI (UK, 2022)</div>
+                <p class="subsec-desc">The chatbot and NLP platform acquired from the UK.</p>
+
+                <div class="card" data-q="acq-3">
+                    <label class="q-label"><span class="q-num">3</span><span class="q-text">Where does the ubisend platform run today?</span></label>
+                    <div class="opts">
+                        <label class="opt"><input type="radio" name="ubisend-hosting" value="uk"><span class="opt-mark"></span><span class="opt-text">Still in original UK infrastructure</span></label>
+                        <label class="opt"><input type="radio" name="ubisend-hosting" value="consolidated"><span class="opt-mark"></span><span class="opt-text">Consolidated into main Soprano infrastructure</span></label>
+                        <label class="opt"><input type="radio" name="ubisend-hosting" value="hybrid"><span class="opt-mark"></span><span class="opt-text">Mix of both</span></label>
+                        <label class="opt"><input type="radio" name="ubisend-hosting" value="unknown"><span class="opt-mark"></span><span class="opt-text">Not sure</span></label>
+                    </div>
+                </div>
+
+                <div class="card" data-q="acq-4">
+                    <label class="q-label"><span class="q-num">4</span><span class="q-text">Does the UK team still manage ubisend independently?</span></label>
+                    <div class="opts">
+                        <label class="opt"><input type="radio" name="ubisend-mgmt" value="uk"><span class="opt-mark"></span><span class="opt-text">UK team manages independently</span></label>
+                        <label class="opt"><input type="radio" name="ubisend-mgmt" value="central"><span class="opt-mark"></span><span class="opt-text">Now under central IT</span></label>
+                        <label class="opt"><input type="radio" name="ubisend-mgmt" value="shared"><span class="opt-mark"></span><span class="opt-text">Shared responsibility</span></label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="subsec">
+                <div class="subsec-title">Hello Technology (Singapore) & Silverstreet (Malaysia)</div>
+                <p class="subsec-desc">Your APAC messaging acquisitions with carrier-grade SMPP connectivity.</p>
+
+                <div class="card" data-q="acq-5">
+                    <label class="q-label"><span class="q-num">5</span><span class="q-text">Are Singapore and Malaysia still operating as separate regional messaging hubs?</span></label>
+                    <div class="opts">
+                        <label class="opt"><input type="radio" name="apac-status" value="separate"><span class="opt-mark"></span><span class="opt-text">Yes, still independent hubs with their own carrier connections</span></label>
+                        <label class="opt"><input type="radio" name="apac-status" value="consolidated"><span class="opt-mark"></span><span class="opt-text">Fully consolidated into Soprano Connect</span></label>
+                        <label class="opt"><input type="radio" name="apac-status" value="partial"><span class="opt-mark"></span><span class="opt-text">Partially consolidated</span></label>
+                        <label class="opt"><input type="radio" name="apac-status" value="unknown"><span class="opt-mark"></span><span class="opt-text">Not sure</span></label>
+                    </div>
+                </div>
+
+                <div class="card" data-q="acq-6">
+                    <label class="q-label"><span class="q-num">6</span><span class="q-text">Do Singapore/Malaysia have their own IT staff making configuration changes?</span></label>
+                    <div class="opts">
+                        <label class="opt"><input type="radio" name="apac-staff" value="local"><span class="opt-mark"></span><span class="opt-text">Yes, local staff manage routing and carrier connections</span></label>
+                        <label class="opt"><input type="radio" name="apac-staff" value="central"><span class="opt-mark"></span><span class="opt-text">No, all managed centrally</span></label>
+                        <label class="opt"><input type="radio" name="apac-staff" value="mixed"><span class="opt-mark"></span><span class="opt-text">Mix - some local, some central</span></label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="subsec">
+                <div class="subsec-title">Orphaned & Shadow Systems</div>
+                <p class="subsec-desc">Systems that might exist outside official visibility.</p>
+
+                <div class="card" data-q="acq-7">
+                    <label class="q-label"><span class="q-num">7</span><span class="q-text">Are there systems officially "end of life" but still running because customers haven't migrated?<span class="q-hint">These are often overlooked but still need monitoring</span></span></label>
+                    <div class="opts">
+                        <label class="opt"><input type="radio" name="legacy-eol" value="yes"><span class="opt-mark"></span><span class="opt-text">Yes, there are some</span></label>
+                        <label class="opt"><input type="radio" name="legacy-eol" value="no"><span class="opt-mark"></span><span class="opt-text">No, everything old has been decommissioned</span></label>
+                        <label class="opt"><input type="radio" name="legacy-eol" value="unknown"><span class="opt-mark"></span><span class="opt-text">Not sure</span></label>
+                    </div>
+                </div>
+
+                <div class="card" data-q="acq-8">
+                    <label class="q-label"><span class="q-num">8</span><span class="q-text">Did acquired teams bring tools, servers, or SaaS subscriptions not on your official asset register?<span class="q-hint">Shadow IT from acquisitions is a common blind spot</span></span></label>
+                    <textarea name="shadow-it" placeholder="List anything you're aware of, or 'None that we know of'..."></textarea>
+                </div>
+            </div>
+
+            <div class="nav-btns">
+                <div></div>
+                <button class="btn btn-pri" onclick="goTo('infrastructure')">Continue to Infrastructure →</button>
+            </div>
+        </section>
+
+        <!-- INFRASTRUCTURE -->
+        <section class="section" id="s-infrastructure">
+            <div class="section-header">
+                <h2 class="section-title">Infrastructure Beyond Sentinel</h2>
+                <p class="section-desc">We can see what's being ingested. This helps us identify what exists that we might not be seeing.</p>
+            </div>
+
+            <div class="card" data-q="infra-1">
+                <label class="q-label"><span class="q-num">1</span><span class="q-text">How many Azure subscriptions exist today? Are they all under one tenant?<span class="q-hint">Include any created for acquired entities or new projects</span></span></label>
+                <textarea name="azure-subs" placeholder="e.g., '5 subscriptions, all under main tenant' or 'Main tenant has 3, Whispir has 2 separate'..."></textarea>
+            </div>
+
+            <div class="card" data-q="infra-2">
+                <label class="q-label"><span class="q-num">2</span><span class="q-text">How many AWS accounts are in use? Are they in a single AWS Organization?</span></label>
+                <textarea name="aws-accounts" placeholder="e.g., '8 accounts in one Organization' or 'Main org has 5, acquired companies have 3 outside'..."></textarea>
+            </div>
+
+            <div class="card" data-q="infra-3">
+                <label class="q-label"><span class="q-num">3</span><span class="q-text">Any workloads in other cloud providers?</span></label>
+                <div class="grid-opts">
+                    <label class="opt"><input type="checkbox" name="other-clouds" value="gcp"><span class="opt-mark check"></span><span class="opt-text">Google Cloud</span></label>
+                    <label class="opt"><input type="checkbox" name="other-clouds" value="oracle"><span class="opt-mark check"></span><span class="opt-text">Oracle Cloud</span></label>
+                    <label class="opt"><input type="checkbox" name="other-clouds" value="regional"><span class="opt-mark check"></span><span class="opt-text">Regional APAC providers</span></label>
+                    <label class="opt"><input type="checkbox" name="other-clouds" value="none"><span class="opt-mark check"></span><span class="opt-text">None - just Azure/AWS</span></label>
+                </div>
+            </div>
+
+            <div class="card" data-q="infra-4">
+                <label class="q-label"><span class="q-num">4</span><span class="q-text">What on-premise infrastructure still exists?</span></label>
+                <div class="opts">
+                    <label class="opt"><input type="checkbox" name="on-prem" value="sydney"><span class="opt-mark check"></span><span class="opt-text">Sydney head office servers</span></label>
+                    <label class="opt"><input type="checkbox" name="on-prem" value="uk"><span class="opt-mark check"></span><span class="opt-text">UK operations infrastructure</span></label>
+                    <label class="opt"><input type="checkbox" name="on-prem" value="acquired"><span class="opt-mark check"></span><span class="opt-text">Acquired company data centres</span></label>
+                    <label class="opt"><input type="checkbox" name="on-prem" value="colo"><span class="opt-mark check"></span><span class="opt-text">Co-location facilities</span></label>
+                    <label class="opt"><input type="checkbox" name="on-prem" value="none"><span class="opt-mark check"></span><span class="opt-text">None - fully cloud</span></label>
+                </div>
+            </div>
+
+            <div class="card" data-q="infra-5">
+                <label class="q-label"><span class="q-num">5</span><span class="q-text">Does the WAF protect all internet-facing services, or just specific applications?</span></label>
+                <div class="opts">
+                    <label class="opt"><input type="radio" name="waf-coverage" value="all"><span class="opt-mark"></span><span class="opt-text">Covers everything internet-facing</span></label>
+                    <label class="opt"><input type="radio" name="waf-coverage" value="partial"><span class="opt-mark"></span><span class="opt-text">Only specific applications (some bypass it)</span></label>
+                    <label class="opt"><input type="radio" name="waf-coverage" value="unknown"><span class="opt-mark"></span><span class="opt-text">Not sure</span></label>
+                </div>
+            </div>
+
+            <div class="card" data-q="infra-6">
+                <label class="q-label"><span class="q-num">6</span><span class="q-text">Any dedicated connections to partners/carriers that bypass standard perimeter?<span class="q-hint">e.g., Private links to Telstra, AWS Direct Connect, Azure ExpressRoute</span></span></label>
+                <textarea name="dedicated-links" placeholder="List any dedicated connections, or 'None'..."></textarea>
+            </div>
+
+            <div class="nav-btns">
+                <button class="btn btn-sec" onclick="goTo('acquisitions')">← Back</button>
+                <button class="btn btn-pri" onclick="goTo('identity')">Continue to Identity →</button>
+            </div>
+        </section>
+
+        <!-- IDENTITY -->
+        <section class="section" id="s-identity">
+            <div class="section-header">
+                <h2 class="section-title">Identity & Access</h2>
+                <p class="section-desc">Understanding how access is managed across your global teams.</p>
+            </div>
+
+            <div class="card" data-q="id-1">
+                <label class="q-label"><span class="q-num">1</span><span class="q-text">Is everyone across all regions authenticating through a central identity provider?</span></label>
+                <div class="opts">
+                    <label class="opt"><input type="radio" name="central-idp" value="yes-entra"><span class="opt-mark"></span><span class="opt-text">Yes, everyone uses Entra ID (Azure AD)</span></label>
+                    <label class="opt"><input type="radio" name="central-idp" value="yes-other"><span class="opt-mark"></span><span class="opt-text">Yes, but different IdP (Okta, etc.)</span></label>
+                    <label class="opt"><input type="radio" name="central-idp" value="mostly"><span class="opt-mark"></span><span class="opt-text">Mostly, but some acquired teams have separate directories</span></label>
+                    <label class="opt"><input type="radio" name="central-idp" value="fragmented"><span class="opt-mark"></span><span class="opt-text">Fragmented - different regions use different systems</span></label>
+                </div>
+            </div>
+
+            <div class="card" data-q="id-2">
+                <label class="q-label"><span class="q-num">2</span><span class="q-text">For production systems, is privileged access tracked?</span></label>
+                <div class="opts">
+                    <label class="opt"><input type="radio" name="priv-access" value="pam"><span class="opt-mark"></span><span class="opt-text">Yes, through a PAM solution</span></label>
+                    <label class="opt"><input type="radio" name="priv-access" value="documented"><span class="opt-mark"></span><span class="opt-text">Documented but not centrally managed</span></label>
+                    <label class="opt"><input type="radio" name="priv-access" value="tribal"><span class="opt-mark"></span><span class="opt-text">Tribal knowledge - key people know who has access</span></label>
+                    <label class="opt"><input type="radio" name="priv-access" value="unknown"><span class="opt-mark"></span><span class="opt-text">Not consistently tracked</span></label>
+                </div>
+            </div>
+
+            <div class="card" data-q="id-3">
+                <label class="q-label"><span class="q-num">3</span><span class="q-text">How do engineers access production systems?</span></label>
+                <div class="opts">
+                    <label class="opt"><input type="checkbox" name="prod-access" value="jump"><span class="opt-mark check"></span><span class="opt-text">Jump hosts / bastion servers</span></label>
+                    <label class="opt"><input type="checkbox" name="prod-access" value="vpn"><span class="opt-mark check"></span><span class="opt-text">VPN then direct access</span></label>
+                    <label class="opt"><input type="checkbox" name="prod-access" value="cloud-console"><span class="opt-mark check"></span><span class="opt-text">Cloud console (AWS SSM, Azure Bastion)</span></label>
+                    <label class="opt"><input type="checkbox" name="prod-access" value="direct"><span class="opt-mark check"></span><span class="opt-text">Direct SSH/RDP</span></label>
+                </div>
+            </div>
+
+            <div class="card" data-q="id-4">
+                <label class="q-label"><span class="q-num">4</span><span class="q-text">When someone leaves, how confident are you access is revoked across all systems?<span class="q-hint">Including acquired platforms, regional systems, service accounts</span></span></label>
+                <div class="opts">
+                    <label class="opt"><input type="radio" name="offboarding" value="very"><span class="opt-mark"></span><span class="opt-text">Very confident - automated process covers everything</span></label>
+                    <label class="opt"><input type="radio" name="offboarding" value="mostly"><span class="opt-mark"></span><span class="opt-text">Mostly confident - main systems covered, might miss edge cases</span></label>
+                    <label class="opt"><input type="radio" name="offboarding" value="not"><span class="opt-mark"></span><span class="opt-text">Not very confident - manual process, things get missed</span></label>
+                    <label class="opt"><input type="radio" name="offboarding" value="unknown"><span class="opt-mark"></span><span class="opt-text">Honestly not sure</span></label>
+                </div>
+            </div>
+
+            <div class="card" data-q="id-5">
+                <label class="q-label"><span class="q-num">5</span><span class="q-text">Do any third parties have access to your systems?<span class="q-hint">Vendors, contractors, carrier partners, retained acquisition staff</span></span></label>
+                <textarea name="third-party" placeholder="List any third parties with system access..."></textarea>
+            </div>
+
+            <div class="nav-btns">
+                <button class="btn btn-sec" onclick="goTo('infrastructure')">← Back</button>
+                <button class="btn btn-pri" onclick="goTo('platform')">Continue to Platform →</button>
+            </div>
+        </section>
+
+        <!-- PLATFORM -->
+        <section class="section" id="s-platform">
+            <div class="section-header">
+                <h2 class="section-title">Soprano Connect Platform</h2>
+                <p class="section-desc">Understanding your core CPaaS platform to identify monitoring gaps.</p>
+            </div>
+
+            <div class="card" data-q="plat-1">
+                <label class="q-label"><span class="q-num">1</span><span class="q-text">What logging exists within Soprano Connect that we might not be getting?</span></label>
+                <div class="opts">
+                    <label class="opt"><input type="checkbox" name="platform-logs" value="admin"><span class="opt-mark check"></span><span class="opt-text">Admin actions (user creation, permission changes)</span></label>
+                    <label class="opt"><input type="checkbox" name="platform-logs" value="api-auth"><span class="opt-mark check"></span><span class="opt-text">API authentication events (success/failure)</span></label>
+                    <label class="opt"><input type="checkbox" name="platform-logs" value="routing"><span class="opt-mark check"></span><span class="opt-text">Message routing and delivery receipts</span></label>
+                    <label class="opt"><input type="checkbox" name="platform-logs" value="fraud"><span class="opt-mark check"></span><span class="opt-text">Fraud detection alerts (AIT, SIM swap)</span></label>
+                    <label class="opt"><input type="checkbox" name="platform-logs" value="unsure"><span class="opt-mark check"></span><span class="opt-text">Not sure what logging exists</span></label>
+                </div>
+            </div>
+
+            <div class="card" data-q="plat-2">
+                <label class="q-label"><span class="q-num">2</span><span class="q-text">For OTP/2FA messages - is the OTP content visible in any logs, or masked?</span></label>
+                <div class="opts">
+                    <label class="opt"><input type="radio" name="otp-visibility" value="masked"><span class="opt-mark"></span><span class="opt-text">Always masked in logs</span></label>
+                    <label class="opt"><input type="radio" name="otp-visibility" value="some"><span class="opt-mark"></span><span class="opt-text">Visible in some places (debug logs)</span></label>
+                    <label class="opt"><input type="radio" name="otp-visibility" value="visible"><span class="opt-mark"></span><span class="opt-text">Visible in logs</span></label>
+                    <label class="opt"><input type="radio" name="otp-visibility" value="unknown"><span class="opt-mark"></span><span class="opt-text">Not sure</span></label>
+                </div>
+            </div>
+
+            <div class="card" data-q="plat-3">
+                <label class="q-label"><span class="q-num">3</span><span class="q-text">Customer API keys and portal credentials - where are these stored?</span></label>
+                <div class="opts">
+                    <label class="opt"><input type="radio" name="cred-storage" value="secrets"><span class="opt-mark"></span><span class="opt-text">Dedicated secrets manager (Vault, AWS Secrets Manager)</span></label>
+                    <label class="opt"><input type="radio" name="cred-storage" value="encrypted-db"><span class="opt-mark"></span><span class="opt-text">Encrypted in application database</span></label>
+                    <label class="opt"><input type="radio" name="cred-storage" value="config"><span class="opt-mark"></span><span class="opt-text">Application config files</span></label>
+                    <label class="opt"><input type="radio" name="cred-storage" value="unknown"><span class="opt-mark"></span><span class="opt-text">Not sure</span></label>
+                </div>
+            </div>
+
+            <div class="card" data-q="plat-4">
+                <label class="q-label"><span class="q-num">4</span><span class="q-text">When fraud detection triggers (AIT, SIM swap), where do those alerts go?</span></label>
+                <div class="opts">
+                    <label class="opt"><input type="checkbox" name="fraud-alerts" value="email"><span class="opt-mark check"></span><span class="opt-text">Email to ops team</span></label>
+                    <label class="opt"><input type="checkbox" name="fraud-alerts" value="dashboard"><span class="opt-mark check"></span><span class="opt-text">Platform dashboard</span></label>
+                    <label class="opt"><input type="checkbox" name="fraud-alerts" value="ticketing"><span class="opt-mark check"></span><span class="opt-text">Ticketing system</span></label>
+                    <label class="opt"><input type="checkbox" name="fraud-alerts" value="logs"><span class="opt-mark check"></span><span class="opt-text">Just in logs</span></label>
+                    <label class="opt"><input type="checkbox" name="fraud-alerts" value="unknown"><span class="opt-mark check"></span><span class="opt-text">Not sure</span></label>
+                </div>
+            </div>
+
+            <div class="card" data-q="plat-5">
+                <label class="q-label"><span class="q-num">5</span><span class="q-text">If a customer account was compromised and used to send phishing at volume, what would trigger an alert?</span></label>
+                <textarea name="phishing-detection" placeholder="Describe what monitoring exists (if any) to detect abuse of customer accounts..."></textarea>
+            </div>
+
+            <div class="nav-btns">
+                <button class="btn btn-sec" onclick="goTo('identity')">← Back</button>
+                <button class="btn btn-pri" onclick="goTo('endpoints')">Continue to Endpoints →</button>
+            </div>
+        </section>
+
+        <!-- ENDPOINTS -->
+        <section class="section" id="s-endpoints">
+            <div class="section-header">
+                <h2 class="section-title">CrowdStrike & Endpoints</h2>
+                <p class="section-desc">CrowdStrike is deployed but not in Sentinel. Help us understand the current state.</p>
+            </div>
+
+            <div class="card" data-q="ep-1">
+                <label class="q-label"><span class="q-num">1</span><span class="q-text">Where is CrowdStrike deployed?</span></label>
+                <div class="opts">
+                    <label class="opt"><input type="checkbox" name="cs-deploy" value="workstations"><span class="opt-mark check"></span><span class="opt-text">All Windows workstations</span></label>
+                    <label class="opt"><input type="checkbox" name="cs-deploy" value="win-servers"><span class="opt-mark check"></span><span class="opt-text">Windows servers</span></label>
+                    <label class="opt"><input type="checkbox" name="cs-deploy" value="linux"><span class="opt-mark check"></span><span class="opt-text">Linux servers</span></label>
+                    <label class="opt"><input type="checkbox" name="cs-deploy" value="mac"><span class="opt-mark check"></span><span class="opt-text">Mac devices</span></label>
+                    <label class="opt"><input type="checkbox" name="cs-deploy" value="all-regions"><span class="opt-mark check"></span><span class="opt-text">All regions including acquired entities</span></label>
+                </div>
+            </div>
+
+            <div class="card" data-q="ep-2">
+                <label class="q-label"><span class="q-num">2</span><span class="q-text">Who monitors CrowdStrike alerts today?</span></label>
+                <div class="opts">
+                    <label class="opt"><input type="radio" name="cs-monitoring" value="dedicated"><span class="opt-mark"></span><span class="opt-text">Dedicated person/team reviews regularly</span></label>
+                    <label class="opt"><input type="radio" name="cs-monitoring" value="it-team"><span class="opt-mark"></span><span class="opt-text">IT team checks when they have time</span></label>
+                    <label class="opt"><input type="radio" name="cs-monitoring" value="reactive"><span class="opt-mark"></span><span class="opt-text">Only looked at when something breaks</span></label>
+                    <label class="opt"><input type="radio" name="cs-monitoring" value="nobody"><span class="opt-mark"></span><span class="opt-text">Alerts are accumulating unactioned</span></label>
+                </div>
+            </div>
+
+            <div class="card" data-q="ep-3">
+                <label class="q-label"><span class="q-num">3</span><span class="q-text">What's driving the decision not to ingest CrowdStrike into Sentinel?</span></label>
+                <div class="opts">
+                    <label class="opt"><input type="checkbox" name="cs-no-ingest" value="cost"><span class="opt-mark check"></span><span class="opt-text">Cost concerns</span></label>
+                    <label class="opt"><input type="checkbox" name="cs-no-ingest" value="complexity"><span class="opt-mark check"></span><span class="opt-text">Technical complexity</span></label>
+                    <label class="opt"><input type="checkbox" name="cs-no-ingest" value="volume"><span class="opt-mark check"></span><span class="opt-text">Concern about alert volume</span></label>
+                    <label class="opt"><input type="checkbox" name="cs-no-ingest" value="not-prioritised"><span class="opt-mark check"></span><span class="opt-text">Just hasn't been prioritised</span></label>
+                </div>
+            </div>
+
+            <div class="card" data-q="ep-4">
+                <label class="q-label"><span class="q-num">4</span><span class="q-text">If CrowdStrike detected a compromise, how would we (your MDR provider) know?</span></label>
+                <div class="opts">
+                    <label class="opt"><input type="radio" name="cs-escalation" value="auto"><span class="opt-mark"></span><span class="opt-text">Automatic - you'd get notified somehow</span></label>
+                    <label class="opt"><input type="radio" name="cs-escalation" value="manual"><span class="opt-mark"></span><span class="opt-text">Manual - we'd have to tell you</span></label>
+                    <label class="opt"><input type="radio" name="cs-escalation" value="no-path"><span class="opt-mark"></span><span class="opt-text">Currently no path - you wouldn't know</span></label>
+                </div>
+            </div>
+
+            <div class="nav-btns">
+                <button class="btn btn-sec" onclick="goTo('platform')">← Back</button>
+                <button class="btn btn-pri" onclick="goTo('risk')">Continue to Risk →</button>
+            </div>
+        </section>
+
+        <!-- RISK -->
+        <section class="section" id="s-risk">
+            <div class="section-header">
+                <h2 class="section-title">Risk & Priorities</h2>
+                <p class="section-desc">Understanding what matters most so we can prioritise coverage.</p>
+            </div>
+
+            <div class="card" data-q="risk-1">
+                <label class="q-label"><span class="q-num">1</span><span class="q-text">What are your top 5 most critical systems? If breached or unavailable, which would cause the most damage?</span></label>
+                <textarea name="critical-systems" rows="5" placeholder="List your top 5 systems in order of criticality..."></textarea>
+            </div>
+
+            <div class="card" data-q="risk-2">
+                <label class="q-label"><span class="q-num">2</span><span class="q-text">For each threat scenario, how confident are you that you'd detect it today?</span></label>
+                <table class="matrix">
+                    <tr><th>Scenario</th><th>Confidence</th></tr>
+                    <tr><td>Compromised customer API key sending phishing at scale</td><td><select name="detect-api"><option value="">Select...</option><option value="high">High</option><option value="medium">Medium</option><option value="low">Low</option><option value="none">None</option></select></td></tr>
+                    <tr><td>Insider accessing customer message data</td><td><select name="detect-insider"><option value="">Select...</option><option value="high">High</option><option value="medium">Medium</option><option value="low">Low</option><option value="none">None</option></select></td></tr>
+                    <tr><td>Attacker pivoting from acquired infrastructure to core platform</td><td><select name="detect-pivot"><option value="">Select...</option><option value="high">High</option><option value="medium">Medium</option><option value="low">Low</option><option value="none">None</option></select></td></tr>
+                    <tr><td>SMS pumping / AIT fraud through your platform</td><td><select name="detect-ait"><option value="">Select...</option><option value="high">High</option><option value="medium">Medium</option><option value="low">Low</option><option value="none">None</option></select></td></tr>
+                    <tr><td>Ransomware spreading from endpoints to production</td><td><select name="detect-ransom"><option value="">Select...</option><option value="high">High</option><option value="medium">Medium</option><option value="low">Low</option><option value="none">None</option></select></td></tr>
+                </table>
+            </div>
+
+            <div class="card" data-q="risk-3">
+                <label class="q-label"><span class="q-num">3</span><span class="q-text">Which compliance frameworks apply?</span></label>
+                <div class="grid-opts">
+                    <label class="opt"><input type="checkbox" name="compliance" value="iso27001"><span class="opt-mark check"></span><span class="opt-text">ISO 27001</span></label>
+                    <label class="opt"><input type="checkbox" name="compliance" value="soc2"><span class="opt-mark check"></span><span class="opt-text">SOC 2</span></label>
+                    <label class="opt"><input type="checkbox" name="compliance" value="nhs"><span class="opt-mark check"></span><span class="opt-text">NHS DSP Toolkit</span></label>
+                    <label class="opt"><input type="checkbox" name="compliance" value="pci"><span class="opt-mark check"></span><span class="opt-text">PCI-DSS</span></label>
+                    <label class="opt"><input type="checkbox" name="compliance" value="pspf"><span class="opt-mark check"></span><span class="opt-text">Australian PSPF/ISM</span></label>
+                    <label class="opt"><input type="checkbox" name="compliance" value="gdpr"><span class="opt-mark check"></span><span class="opt-text">GDPR</span></label>
+                </div>
+            </div>
+
+            <div class="card" data-q="risk-4">
+                <label class="q-label"><span class="q-num">4</span><span class="q-text">When auditors ask for evidence, what's painful to produce that better logging might solve?</span></label>
+                <textarea name="audit-pain" placeholder="e.g., 'Access logs for specific systems', 'Proof of who accessed what data'..."></textarea>
+            </div>
+
+            <div class="card" data-q="risk-5">
+                <label class="q-label"><span class="q-num">5</span><span class="q-text">If you could fix one visibility gap tomorrow, what would it be?<span class="q-hint">What keeps you up at night?</span></span></label>
+                <textarea name="top-gap" placeholder="The one thing that worries you because you can't see it..."></textarea>
+            </div>
+
+            <div class="nav-btns">
+                <button class="btn btn-sec" onclick="goTo('endpoints')">← Back</button>
+                <button class="btn btn-pri" onclick="goTo('operations')">Continue to Operations →</button>
+            </div>
+        </section>
+
+        <!-- OPERATIONS -->
+        <section class="section" id="s-operations">
+            <div class="section-header">
+                <h2 class="section-title">Operational Realities</h2>
+                <p class="section-desc">So we can make practical recommendations that work for your team.</p>
+            </div>
+
+            <div class="card" data-q="ops-1">
+                <label class="q-label"><span class="q-num">1</span><span class="q-text">The IT team is also the security team. How much capacity is there for security work?</span></label>
+                <div class="opts">
+                    <label class="opt"><input type="radio" name="capacity" value="dedicated"><span class="opt-mark"></span><span class="opt-text">We have dedicated time for security</span></label>
+                    <label class="opt"><input type="radio" name="capacity" value="some"><span class="opt-mark"></span><span class="opt-text">A few hours per week when things are quiet</span></label>
+                    <label class="opt"><input type="radio" name="capacity" value="reactive"><span class="opt-mark"></span><span class="opt-text">Mostly reactive - only when something happens</span></label>
+                    <label class="opt"><input type="radio" name="capacity" value="none"><span class="opt-mark"></span><span class="opt-text">Very limited - keeping lights on takes everything</span></label>
+                </div>
+            </div>
+
+            <div class="card" data-q="ops-2">
+                <label class="q-label"><span class="q-num">2</span><span class="q-text">If we increase alert volume from Sentinel, is there capacity to respond?</span></label>
+                <div class="opts">
+                    <label class="opt"><input type="radio" name="alert-capacity" value="yes"><span class="opt-mark"></span><span class="opt-text">Yes, we can handle more alerts</span></label>
+                    <label class="opt"><input type="radio" name="alert-capacity" value="high-only"><span class="opt-mark"></span><span class="opt-text">Only if they're high priority and actionable</span></label>
+                    <label class="opt"><input type="radio" name="alert-capacity" value="struggle"><span class="opt-mark"></span><span class="opt-text">We'd struggle - already have alert fatigue</span></label>
+                    <label class="opt"><input type="radio" name="alert-capacity" value="no"><span class="opt-mark"></span><span class="opt-text">No - need you to handle more on your side</span></label>
+                </div>
+            </div>
+
+            <div class="card" data-q="ops-3">
+                <label class="q-label"><span class="q-num">3</span><span class="q-text">When we detect something urgent, who do we call?</span></label>
+                <textarea name="escalation" rows="4" placeholder="Primary contact: Name, phone, email&#10;Secondary contact: ...&#10;After-hours: ..."></textarea>
+            </div>
+
+            <div class="card" data-q="ops-4">
+                <label class="q-label"><span class="q-num">4</span><span class="q-text">What's changing in the next 6-12 months that will affect the environment?</span></label>
+                <div class="opts">
+                    <label class="opt"><input type="checkbox" name="changes" value="decommission"><span class="opt-mark check"></span><span class="opt-text">Decommissioning acquired platforms</span></label>
+                    <label class="opt"><input type="checkbox" name="changes" value="new-regions"><span class="opt-mark check"></span><span class="opt-text">New regional deployments</span></label>
+                    <label class="opt"><input type="checkbox" name="changes" value="migration"><span class="opt-mark check"></span><span class="opt-text">Cloud migrations or consolidation</span></label>
+                    <label class="opt"><input type="checkbox" name="changes" value="products"><span class="opt-mark check"></span><span class="opt-text">New products or features</span></label>
+                    <label class="opt"><input type="checkbox" name="changes" value="security-tools"><span class="opt-mark check"></span><span class="opt-text">Changes to security tooling</span></label>
+                </div>
+            </div>
+
+            <div class="card" data-q="ops-5">
+                <label class="q-label"><span class="q-num">5</span><span class="q-text">Anything else we should know that we haven't asked?</span></label>
+                <textarea name="anything-else" rows="4" placeholder="Any other systems, concerns, or context..."></textarea>
+            </div>
+
+            <div class="nav-btns">
+                <button class="btn btn-sec" onclick="goTo('risk')">← Back</button>
+                <button class="btn btn-pri" onclick="submitForm()">Submit Responses ✓</button>
+            </div>
+        </section>
+
+        <!-- COMPLETE -->
+        <section class="section" id="s-complete">
+            <div class="complete">
+                <div class="complete-icon">✓</div>
+                <h2>Thank You!</h2>
+                <p style="color:var(--text-dim); margin-bottom:2rem;">Your responses have been submitted. We'll review and come back with findings and recommendations.</p>
+                <button class="btn btn-pri" onclick="downloadResponses()">Download a Copy</button>
+            </div>
+        </section>
+    </main>
+
+    <div class="save-toast" id="toast"><span>💾</span> Saved</div>
+
+    <script>
+        const sections = ['acquisitions','infrastructure','identity','platform','endpoints','risk','operations'];
+        const counts = {acquisitions:8,infrastructure:6,identity:5,platform:5,endpoints:4,risk:5,operations:5};
+        let responses = JSON.parse(localStorage.getItem('soprano-discovery') || '{}');
+
+        document.addEventListener('DOMContentLoaded', () => {
+            restoreState();
+            setupListeners();
+            updateProgress();
+        });
+
+        function setupListeners() {
+            document.querySelectorAll('.tab').forEach(t => t.onclick = () => goTo(t.dataset.section));
+            document.querySelectorAll('input[type="radio"]').forEach(i => i.onchange = e => {
+                document.querySelectorAll(`input[name="${e.target.name}"]`).forEach(r => r.closest('.opt')?.classList.remove('sel'));
+                e.target.closest('.opt')?.classList.add('sel');
+                save(e.target.name, e.target.value);
+                markAnswered(e.target);
+            });
+            document.querySelectorAll('input[type="checkbox"]').forEach(i => i.onchange = e => {
+                e.target.closest('.opt')?.classList.toggle('sel', e.target.checked);
+                const vals = [...document.querySelectorAll(`input[name="${e.target.name}"]:checked`)].map(c=>c.value);
+                save(e.target.name, vals);
+                markAnswered(e.target);
+            });
+            document.querySelectorAll('textarea, input[type="text"]').forEach(i => {
+                let t;
+                i.oninput = e => { clearTimeout(t); t = setTimeout(() => { save(e.target.name, e.target.value); if(e.target.value.trim()) markAnswered(e.target); }, 400); };
+            });
+            document.querySelectorAll('select').forEach(s => s.onchange = e => { save(e.target.name, e.target.value); markAnswered(e.target); });
+        }
+
+        function goTo(sec) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.getElementById('s-'+sec)?.classList.add('active');
+            document.querySelector(`.tab[data-section="${sec}"]`)?.classList.add('active');
+            window.scrollTo({top:0,behavior:'smooth'});
+        }
+
+        function save(k,v) {
+            responses[k] = v;
+            localStorage.setItem('soprano-discovery', JSON.stringify(responses));
+            showToast();
+            updateProgress();
+        }
+
+        function restoreState() {
+            Object.entries(responses).forEach(([k,v]) => {
+                if(Array.isArray(v)) v.forEach(val => {
+                    const el = document.querySelector(`input[name="${k}"][value="${val}"]`);
+                    if(el) { el.checked = true; el.closest('.opt')?.classList.add('sel'); }
+                });
+                else {
+                    const el = document.querySelector(`input[name="${k}"][value="${v}"]`) || document.querySelector(`[name="${k}"]`);
+                    if(el) { if(el.type==='radio') { el.checked = true; el.closest('.opt')?.classList.add('sel'); } else el.value = v; }
+                }
+                const inp = document.querySelector(`[name="${k}"]`);
+                if(inp && v && (Array.isArray(v) ? v.length : true)) inp.closest('.card')?.classList.add('answered');
+            });
+        }
+
+        function markAnswered(el) { el.closest('.card')?.classList.add('answered'); }
+
+        function showToast() {
+            const t = document.getElementById('toast');
+            t.classList.add('show','saved');
+            setTimeout(() => t.classList.remove('show'), 1500);
+        }
+
+        function updateProgress() {
+            let total = 0, answered = 0;
+            sections.forEach(sec => {
+                const cards = document.querySelectorAll(`#s-${sec} .card`);
+                const ans = document.querySelectorAll(`#s-${sec} .card.answered`);
+                total += cards.length;
+                answered += ans.length;
+                const c = document.getElementById('c-'+sec);
+                if(c) c.textContent = `${ans.length}/${cards.length}`;
+            });
+            const pct = total ? Math.round(answered/total*100) : 0;
+            document.getElementById('progressFill').style.width = pct+'%';
+            document.getElementById('progressText').textContent = pct+'% complete';
+        }
+
+        function submitForm() {
+            goTo('complete');
+            document.getElementById('progressFill').style.width = '100%';
+            document.getElementById('progressText').textContent = 'Complete!';
+        }
+
+        function downloadResponses() {
+            let md = '# Soprano Design MDR Discovery Responses\n\nGenerated: '+new Date().toLocaleString()+'\n\n';
+            Object.entries(responses).forEach(([k,v]) => { md += `**${k}:** ${Array.isArray(v)?v.join(', '):v}\n\n`; });
+            const blob = new Blob([md], {type:'text/markdown'});
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'soprano-discovery.md';
+            a.click();
+        }
+    </script>
+</body>
+</html>
