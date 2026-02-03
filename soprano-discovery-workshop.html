@@ -738,7 +738,7 @@
         </div>
 
         <nav class="tabs" id="tabs">
-            <button class="tab active" data-section="acquisitions">Acquisitions <span class="count" id="c-acquisitions">0/8</span></button>
+            <button class="tab active" data-section="business">Business Overview <span class="count" id="c-business">0/8</span></button>
             <button class="tab" data-section="infrastructure">Infrastructure <span class="count" id="c-infrastructure">0/6</span></button>
             <button class="tab" data-section="identity">Identity & Access <span class="count" id="c-identity">0/5</span></button>
             <button class="tab" data-section="platform">Platform <span class="count" id="c-platform">0/5</span></button>
@@ -747,15 +747,15 @@
             <button class="tab" data-section="operations">Operations <span class="count" id="c-operations">0/5</span></button>
         </nav>
 
-        <!-- ACQUISITIONS -->
-        <section class="section active" id="s-acquisitions">
+        <!-- BUSINESS OVERVIEW -->
+        <section class="section active" id="s-business">
             <div class="section-header">
-                <h2 class="section-title">Post-Acquisition Environment</h2>
-                <p class="section-desc">Soprano has made several acquisitions. We need to understand what's integrated vs. still separate.</p>
+                <h2 class="section-title">Business Overview</h2>
+                <p class="section-desc">Understanding your organisational structure, integrations, and how different business units operate today.</p>
             </div>
 
             <div class="subsec">
-                <div class="subsec-title">Whispir</div>
+                <div class="subsec-title">Whispir Integration</div>
 
                 <div class="card" data-q="acq-1">
                     <label class="q-label"><span class="q-num">1</span><span class="q-text">What's the current state of Whispir infrastructure?</span></label>
@@ -783,7 +783,7 @@
             </div>
 
             <div class="subsec">
-                <div class="subsec-title">Ubisend / Conversational AI</div>
+                <div class="subsec-title">Ubisend / Conversational AI Platform</div>
 
                 <div class="card" data-q="acq-3">
                     <label class="q-label"><span class="q-num">3</span><span class="q-text">Where does the Ubisend platform run today?</span></label>
@@ -810,7 +810,7 @@
             </div>
 
             <div class="subsec">
-                <div class="subsec-title">Hello Technology & Silverstreet</div>
+                <div class="subsec-title">APAC Regional Operations</div>
 
                 <div class="card" data-q="acq-5">
                     <label class="q-label"><span class="q-num">5</span><span class="q-text">Are Singapore and Malaysia still operating as separate regional messaging hubs?</span></label>
@@ -837,7 +837,7 @@
             </div>
 
             <div class="subsec">
-                <div class="subsec-title">Orphaned & Shadow Systems</div>
+                <div class="subsec-title">Legacy & Unmanaged Systems</div>
 
                 <div class="card" data-q="acq-7">
                     <label class="q-label"><span class="q-num">7</span><span class="q-text">Are there systems officially "end of life" but still running because customers haven't migrated?<span class="q-hint">These are often overlooked but still need monitoring</span></span></label>
@@ -851,7 +851,7 @@
                 </div>
 
                 <div class="card" data-q="acq-8">
-                    <label class="q-label"><span class="q-num">8</span><span class="q-text">Did acquired teams bring tools, servers, or SaaS subscriptions not on your official asset register?<span class="q-hint">Shadow IT from acquisitions is a common blind spot</span></span></label>
+                    <label class="q-label"><span class="q-num">8</span><span class="q-text">Did acquired teams bring tools, servers, or SaaS subscriptions not on your official asset register?<span class="q-hint">Shadow IT from past integrations is a common blind spot</span></span></label>
                     <textarea name="shadow-it" placeholder="List anything you're aware of, or 'None that we know of'..."></textarea>
                 </div>
             </div>
@@ -859,6 +859,7 @@
             <div class="nav-btns">
                 <div></div>
                 <button class="btn btn-pri" onclick="goTo('infrastructure')">Continue to Infrastructure &rarr;</button>
+
             </div>
         </section>
 
@@ -921,7 +922,7 @@
             </div>
 
             <div class="nav-btns">
-                <button class="btn btn-sec" onclick="goTo('acquisitions')">&larr; Back</button>
+                <button class="btn btn-sec" onclick="goTo('business')">&larr; Back</button>
                 <button class="btn btn-pri" onclick="goTo('identity')">Continue to Identity &rarr;</button>
             </div>
         </section>
@@ -982,7 +983,7 @@
             </div>
 
             <div class="card" data-q="id-5">
-                <label class="q-label"><span class="q-num">5</span><span class="q-text">Do any third parties have access to your systems?<span class="q-hint">Vendors, contractors, carrier partners, retained acquisition staff</span></span></label>
+                <label class="q-label"><span class="q-num">5</span><span class="q-text">Do any third parties have access to your systems?<span class="q-hint">Vendors, contractors, carrier partners, retained staff from integrations</span></span></label>
                 <textarea name="third-party" placeholder="List any third parties with system access..."></textarea>
             </div>
 
@@ -1254,8 +1255,8 @@
     <div class="save-toast" id="toast"><span style="font-size:0.9rem;">&#10003;</span> Auto-saved</div>
 
     <script>
-        const sections = ['acquisitions','infrastructure','identity','platform','endpoints','risk','operations'];
-        const counts = {acquisitions:8,infrastructure:6,identity:5,platform:5,endpoints:4,risk:5,operations:5};
+        const sections = ['business','infrastructure','identity','platform','endpoints','risk','operations'];
+        const counts = {business:8,infrastructure:6,identity:5,platform:5,endpoints:4,risk:5,operations:5};
         let responses = JSON.parse(localStorage.getItem('soprano-discovery') || '{}');
 
         document.addEventListener('DOMContentLoaded', () => {
