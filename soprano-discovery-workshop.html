@@ -99,7 +99,7 @@
 
         .progress-bar {
             width: 160px;
-            height: 3px;
+            height: 4px;
             background: var(--border);
             border-radius: 2px;
             overflow: hidden;
@@ -316,6 +316,7 @@
 
         .card:hover {
             border-color: var(--border-light);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
         }
 
         .card.answered {
@@ -342,6 +343,7 @@
         .card.answered .q-num {
             background: var(--success);
             color: #fff;
+            transition: background 0.3s ease;
         }
 
         .q-label {
@@ -360,9 +362,8 @@
             font-size: 0.8rem;
             color: var(--text-muted);
             font-weight: 400;
-            font-style: normal;
+            font-style: italic;
             margin-top: 0.35rem;
-            opacity: 0.8;
         }
 
         /* ─── INPUTS ─── */
@@ -375,10 +376,13 @@
             color: var(--text);
             font-family: 'Inter', sans-serif;
             font-size: 0.875rem;
-            resize: vertical;
-            min-height: 100px;
             transition: all 0.2s ease;
             line-height: 1.6;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
         }
 
         textarea:focus, input:focus {
@@ -419,6 +423,7 @@
         .opt.sel {
             border-color: var(--accent);
             background: var(--accent-glow);
+            box-shadow: 0 0 0 1px var(--accent-border);
         }
 
         .opt input { display: none; }
@@ -490,11 +495,17 @@
         }
 
         /* ─── MATRIX TABLE ─── */
+        .matrix-wrap {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin-top: 0.75rem;
+        }
+
         .matrix {
             width: 100%;
             border-collapse: separate;
             border-spacing: 0;
-            margin-top: 0.75rem;
+            min-width: 480px;
         }
 
         .matrix th {
@@ -690,6 +701,8 @@
         }
         .welcome-start {
             margin-top: 0.5rem;
+            padding: 0.85rem 2.5rem;
+            font-size: 0.95rem;
         }
 
         /* ─── CONFIRM MODAL ─── */
@@ -780,17 +793,27 @@
         @media (max-width: 640px) {
             .header { padding: 0 1rem; }
             .header-inner { height: 56px; }
-            main { padding: 80px 1rem 2rem; }
+            .logo-img { height: 22px; }
+            .logo-sub { font-size: 0.5rem; }
+            main { padding: 76px 1rem 2rem; }
             .welcome { padding: 2rem 1.25rem; }
             .welcome h1 { font-size: 1.5rem; }
+            .welcome p { font-size: 0.875rem; }
             .section-title { font-size: 1.25rem; }
             .nav-btns { flex-direction: column; }
             .btn { justify-content: center; width: 100%; }
             .progress-bar { width: 100px; }
             .card { padding: 1.25rem; }
-            .subsec { padding: 1.25rem; }
+            .subsec { padding: 1rem; }
+            .opt { padding: 0.75rem 0.85rem; }
             .welcome-meta { flex-direction: column; gap: 0.5rem; align-items: center; }
             .modal { padding: 1.5rem; }
+            .matrix { font-size: 0.8rem; }
+            .matrix th, .matrix td { padding: 0.6rem 0.5rem; }
+            .matrix td:first-child { min-width: 140px; }
+            .grid-opts { grid-template-columns: 1fr; }
+            .tabs { gap: 0.25rem; }
+            .tab { font-size: 0.72rem; padding: 0.5rem 0.75rem; }
         }
 
         /* Scrollbar styling */
@@ -855,6 +878,7 @@
 
             <div class="subsec">
                 <div class="subsec-title">Whispir Integration</div>
+                <p class="subsec-desc">Post-acquisition infrastructure and migration status.</p>
 
                 <div class="card" data-q="biz-1">
                     <label class="q-label"><span class="q-num">1</span><span class="q-text">What's the current state of Whispir infrastructure?</span></label>
@@ -885,6 +909,7 @@
 
             <div class="subsec">
                 <div class="subsec-title">Ubisend / Conversational AI Platform</div>
+                <p class="subsec-desc">Current hosting and management structure.</p>
 
                 <div class="card" data-q="biz-3">
                     <label class="q-label"><span class="q-num">3</span><span class="q-text">Where does the Ubisend platform run today?</span></label>
@@ -914,6 +939,7 @@
 
             <div class="subsec">
                 <div class="subsec-title">APAC Regional Operations</div>
+                <p class="subsec-desc">Singapore, Malaysia, and regional messaging hub status.</p>
 
                 <div class="card" data-q="biz-5">
                     <label class="q-label"><span class="q-num">5</span><span class="q-text">Are Singapore and Malaysia still operating as separate regional messaging hubs?</span></label>
@@ -943,6 +969,7 @@
 
             <div class="subsec">
                 <div class="subsec-title">Legacy & Unmanaged Systems</div>
+                <p class="subsec-desc">End-of-life systems and shadow IT that may need coverage.</p>
 
                 <div class="card" data-q="biz-7">
                     <label class="q-label"><span class="q-num">7</span><span class="q-text">Are there systems officially "end of life" but still running because customers haven't migrated?<span class="q-hint">These are often overlooked but still need monitoring</span></span></label>
@@ -988,6 +1015,7 @@
 
             <div class="card" data-q="infra-3">
                 <label class="q-label"><span class="q-num">3</span><span class="q-text">Any workloads in other cloud providers?</span></label>
+                <div class="select-hint">Select all that apply</div>
                 <div class="grid-opts">
                     <label class="opt"><input type="checkbox" name="other-clouds" value="gcp"><span class="opt-mark check"></span><span class="opt-text">Google Cloud</span></label>
                     <label class="opt"><input type="checkbox" name="other-clouds" value="oracle"><span class="opt-mark check"></span><span class="opt-text">Oracle Cloud</span></label>
@@ -1291,6 +1319,7 @@
 
             <div class="card" data-q="risk-2">
                 <label class="q-label"><span class="q-num">2</span><span class="q-text">For each scenario, what level of detection capability exists today?</span></label>
+                <div class="matrix-wrap">
                 <table class="matrix">
                     <tr><th>Scenario</th><th style="width: 160px;">Detection Level</th></tr>
                     <tr><td>Compromised customer API key sending phishing at scale</td><td><select name="detect-api"><option value="">Select...</option><option value="high">High</option><option value="medium">Medium</option><option value="low">Low</option><option value="none">None</option></select></td></tr>
@@ -1299,10 +1328,12 @@
                     <tr><td>SMS pumping / AIT fraud through your platform</td><td><select name="detect-ait"><option value="">Select...</option><option value="high">High</option><option value="medium">Medium</option><option value="low">Low</option><option value="none">None</option></select></td></tr>
                     <tr><td>Ransomware spreading from endpoints to production</td><td><select name="detect-ransom"><option value="">Select...</option><option value="high">High</option><option value="medium">Medium</option><option value="low">Low</option><option value="none">None</option></select></td></tr>
                 </table>
+                </div>
             </div>
 
             <div class="card" data-q="risk-3">
                 <label class="q-label"><span class="q-num">3</span><span class="q-text">Which compliance frameworks apply?</span></label>
+                <div class="select-hint">Select all that apply</div>
                 <div class="grid-opts">
                     <label class="opt"><input type="checkbox" name="compliance" value="iso27001"><span class="opt-mark check"></span><span class="opt-text">ISO 27001</span></label>
                     <label class="opt"><input type="checkbox" name="compliance" value="soc2"><span class="opt-mark check"></span><span class="opt-text">SOC 2</span></label>
@@ -1359,7 +1390,7 @@
                     <label class="opt"><input type="checkbox" name="alert-capacity" value="yes"><span class="opt-mark check"></span><span class="opt-text">Yes, we can handle more alerts</span></label>
                     <label class="opt"><input type="checkbox" name="alert-capacity" value="high-only"><span class="opt-mark check"></span><span class="opt-text">Only if they're high priority and actionable</span></label>
                     <label class="opt"><input type="checkbox" name="alert-capacity" value="struggle"><span class="opt-mark check"></span><span class="opt-text">We'd struggle - already have alert fatigue</span></label>
-                    <label class="opt"><input type="checkbox" name="alert-capacity" value="no"><span class="opt-mark check"></span><span class="opt-text">No - prefer the MDR provider handles more</span></label>
+                    <label class="opt"><input type="checkbox" name="alert-capacity" value="no"><span class="opt-mark check"></span><span class="opt-text">No - prefer Armor handles more</span></label>
                     <label class="opt"><input type="checkbox" name="alert-capacity" value="other"><span class="opt-mark check"></span><span class="opt-text">Other</span></label>
                     <input type="text" class="other-input" name="alert-capacity-other" placeholder="Please specify...">
                 </div>
@@ -1492,13 +1523,28 @@
                 const hasOther = vals.includes('other');
                 toggleOtherInput(e.target.name, hasOther);
                 markAnswered(e.target, vals.length > 0);
-                if(vals.length > 0) scrollToNextCard(e.target);
             });
             document.querySelectorAll('textarea, input[type="text"]').forEach(i => {
                 let t;
                 i.oninput = e => { clearTimeout(t); t = setTimeout(() => { save(e.target.name, e.target.value); markAnswered(e.target, !!e.target.value.trim()); }, 400); };
+                if(i.tagName === 'TEXTAREA') {
+                    i.onblur = e => { if(e.target.value.trim()) scrollToNextCard(e.target, true); };
+                }
             });
-            document.querySelectorAll('select').forEach(s => s.onchange = e => { save(e.target.name, e.target.value); markAnswered(e.target, !!e.target.value); });
+            document.querySelectorAll('select').forEach(s => s.onchange = e => {
+                save(e.target.name, e.target.value);
+                // For matrix cards with multiple selects, only mark answered when ALL are filled
+                const card = e.target.closest('.card');
+                if(card) {
+                    const allSelects = card.querySelectorAll('select');
+                    if(allSelects.length > 1) {
+                        const allFilled = [...allSelects].every(s => s.value);
+                        markAnswered(e.target, allFilled);
+                    } else {
+                        markAnswered(e.target, !!e.target.value);
+                    }
+                }
+            });
         }
 
         function goTo(sec) {
@@ -1555,7 +1601,18 @@
                     }
                 }
                 const inp = document.querySelector(`[name="${k}"]`);
-                if(inp && v && (Array.isArray(v) ? v.length : true)) inp.closest('.card')?.classList.add('answered');
+                if(inp && v && (Array.isArray(v) ? v.length : true)) {
+                    const card = inp.closest('.card');
+                    if(card) {
+                        // For matrix cards with multiple selects, only mark answered when ALL are filled
+                        const allSelects = card.querySelectorAll('select');
+                        if(allSelects.length > 1) {
+                            if([...allSelects].every(s => s.value)) card.classList.add('answered');
+                        } else {
+                            card.classList.add('answered');
+                        }
+                    }
+                }
             });
             // Save any migrated data back to localStorage
             localStorage.setItem('soprano-discovery', JSON.stringify(responses));
@@ -1596,7 +1653,10 @@
         }
 
         // ─── AUTO-SCROLL TO NEXT CARD ───
-        function scrollToNextCard(currentEl) {
+        // Only scrolls for textarea/text cards (single-input). For checkbox cards,
+        // scrolling on every tick is disruptive when selecting multiple options.
+        function scrollToNextCard(currentEl, forceScroll) {
+            if(!forceScroll) return; // only textareas trigger auto-scroll
             const card = currentEl.closest('.card');
             if(!card) return;
             const next = card.nextElementSibling;
