@@ -758,7 +758,7 @@
                 <div class="subsec-title">Ubisend / Conversational AI</div>
 
                 <div class="card" data-q="acq-3">
-                    <label class="q-label"><span class="q-num">3</span><span class="q-text">Where does the ubisend platform run today?</span></label>
+                    <label class="q-label"><span class="q-num">3</span><span class="q-text">Where does the Ubisend platform run today?</span></label>
                     <div class="opts">
                         <label class="opt"><input type="radio" name="ubisend-hosting" value="uk"><span class="opt-mark"></span><span class="opt-text">Still in original UK infrastructure</span></label>
                         <label class="opt"><input type="radio" name="ubisend-hosting" value="consolidated"><span class="opt-mark"></span><span class="opt-text">Consolidated into main Soprano infrastructure</span></label>
@@ -768,7 +768,7 @@
                 </div>
 
                 <div class="card" data-q="acq-4">
-                    <label class="q-label"><span class="q-num">4</span><span class="q-text">Does the UK team still manage ubisend independently?</span></label>
+                    <label class="q-label"><span class="q-num">4</span><span class="q-text">Does the UK team still manage Ubisend independently?</span></label>
                     <div class="opts">
                         <label class="opt"><input type="radio" name="ubisend-mgmt" value="uk"><span class="opt-mark"></span><span class="opt-text">UK team manages independently</span></label>
                         <label class="opt"><input type="radio" name="ubisend-mgmt" value="central"><span class="opt-mark"></span><span class="opt-text">Now under central IT</span></label>
@@ -827,7 +827,7 @@
         <!-- INFRASTRUCTURE -->
         <section class="section" id="s-infrastructure">
             <div class="section-header">
-                <h2 class="section-title">Infrastructure Beyond Sentinel</h2>
+                <h2 class="section-title">Infrastructure Overview</h2>
                 <p class="section-desc">Help us map the full picture of your infrastructure across cloud and on-premise.</p>
             </div>
 
@@ -949,7 +949,7 @@
             </div>
 
             <div class="card" data-q="plat-1">
-                <label class="q-label"><span class="q-num">1</span><span class="q-text">What logging exists within Soprano Connect that we might not be getting?</span></label>
+                <label class="q-label"><span class="q-num">1</span><span class="q-text">What logging exists within Soprano Connect?</span></label>
                 <div class="opts">
                     <label class="opt"><input type="checkbox" name="platform-logs" value="admin"><span class="opt-mark check"></span><span class="opt-text">Admin actions (user creation, permission changes)</span></label>
                     <label class="opt"><input type="checkbox" name="platform-logs" value="api-auth"><span class="opt-mark check"></span><span class="opt-text">API authentication events (success/failure)</span></label>
@@ -1043,9 +1043,9 @@
             <div class="card" data-q="ep-4">
                 <label class="q-label"><span class="q-num">4</span><span class="q-text">If CrowdStrike detected a compromise, how would your MDR provider be notified?</span></label>
                 <div class="opts">
-                    <label class="opt"><input type="radio" name="cs-escalation" value="auto"><span class="opt-mark"></span><span class="opt-text">Automatic - you'd get notified somehow</span></label>
-                    <label class="opt"><input type="radio" name="cs-escalation" value="manual"><span class="opt-mark"></span><span class="opt-text">Manual - we'd have to tell you</span></label>
-                    <label class="opt"><input type="radio" name="cs-escalation" value="no-path"><span class="opt-mark"></span><span class="opt-text">Currently no path - you wouldn't know</span></label>
+                    <label class="opt"><input type="radio" name="cs-escalation" value="auto"><span class="opt-mark"></span><span class="opt-text">Automatically - integrated alerting is in place</span></label>
+                    <label class="opt"><input type="radio" name="cs-escalation" value="manual"><span class="opt-mark"></span><span class="opt-text">Manually - our team would escalate it</span></label>
+                    <label class="opt"><input type="radio" name="cs-escalation" value="no-path"><span class="opt-mark"></span><span class="opt-text">No notification path exists currently</span></label>
                 </div>
             </div>
 
@@ -1070,7 +1070,7 @@
             <div class="card" data-q="risk-2">
                 <label class="q-label"><span class="q-num">2</span><span class="q-text">For each scenario, what level of detection capability exists today?</span></label>
                 <table class="matrix">
-                    <tr><th>Scenario</th><th style="width: 160px;">Confidence</th></tr>
+                    <tr><th>Scenario</th><th style="width: 160px;">Detection Level</th></tr>
                     <tr><td>Compromised customer API key sending phishing at scale</td><td><select name="detect-api"><option value="">Select...</option><option value="high">High</option><option value="medium">Medium</option><option value="low">Low</option><option value="none">None</option></select></td></tr>
                     <tr><td>Insider accessing customer message data</td><td><select name="detect-insider"><option value="">Select...</option><option value="high">High</option><option value="medium">Medium</option><option value="low">Low</option><option value="none">None</option></select></td></tr>
                     <tr><td>Attacker pivoting from acquired infrastructure to core platform</td><td><select name="detect-pivot"><option value="">Select...</option><option value="high">High</option><option value="medium">Medium</option><option value="low">Low</option><option value="none">None</option></select></td></tr>
@@ -1125,22 +1125,22 @@
             </div>
 
             <div class="card" data-q="ops-2">
-                <label class="q-label"><span class="q-num">2</span><span class="q-text">If we increase alert volume from Sentinel, is there capacity to respond?</span></label>
+                <label class="q-label"><span class="q-num">2</span><span class="q-text">If alert volume from Sentinel increases, is there capacity to respond?</span></label>
                 <div class="opts">
                     <label class="opt"><input type="radio" name="alert-capacity" value="yes"><span class="opt-mark"></span><span class="opt-text">Yes, we can handle more alerts</span></label>
                     <label class="opt"><input type="radio" name="alert-capacity" value="high-only"><span class="opt-mark"></span><span class="opt-text">Only if they're high priority and actionable</span></label>
                     <label class="opt"><input type="radio" name="alert-capacity" value="struggle"><span class="opt-mark"></span><span class="opt-text">We'd struggle - already have alert fatigue</span></label>
-                    <label class="opt"><input type="radio" name="alert-capacity" value="no"><span class="opt-mark"></span><span class="opt-text">No - need you to handle more on your side</span></label>
+                    <label class="opt"><input type="radio" name="alert-capacity" value="no"><span class="opt-mark"></span><span class="opt-text">No - prefer the MDR provider handles more</span></label>
                 </div>
             </div>
 
             <div class="card" data-q="ops-3">
-                <label class="q-label"><span class="q-num">3</span><span class="q-text">When we detect something urgent, who do we call?</span></label>
+                <label class="q-label"><span class="q-num">3</span><span class="q-text">When something urgent is detected, who should be contacted?</span></label>
                 <textarea name="escalation" rows="4" placeholder="Primary contact: Name, phone, email&#10;Secondary contact: ...&#10;After-hours: ..."></textarea>
             </div>
 
             <div class="card" data-q="ops-4">
-                <label class="q-label"><span class="q-num">4</span><span class="q-text">What's changing in the next 6–12 months that will affect the environment?</span></label>
+                <label class="q-label"><span class="q-num">4</span><span class="q-text">What's changing in the next 6-12 months that will affect the environment?</span></label>
                 <div class="opts">
                     <label class="opt"><input type="checkbox" name="changes" value="decommission"><span class="opt-mark check"></span><span class="opt-text">Decommissioning acquired platforms</span></label>
                     <label class="opt"><input type="checkbox" name="changes" value="new-regions"><span class="opt-mark check"></span><span class="opt-text">New regional deployments</span></label>
@@ -1151,7 +1151,7 @@
             </div>
 
             <div class="card" data-q="ops-5">
-                <label class="q-label"><span class="q-num">5</span><span class="q-text">Anything else we should know that we haven't asked?</span></label>
+                <label class="q-label"><span class="q-num">5</span><span class="q-text">Is there anything else we should know that hasn't been covered?</span></label>
                 <textarea name="anything-else" rows="4" placeholder="Any other systems, concerns, or context..."></textarea>
             </div>
 
