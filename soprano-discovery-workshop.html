@@ -447,13 +447,11 @@
             width: 18px;
             height: 18px;
             border: 1.5px solid var(--border-light);
-            border-radius: 50%;
+            border-radius: 5px;
             flex-shrink: 0;
             position: relative;
             transition: all 0.2s ease;
         }
-
-        .opt-mark.check { border-radius: 5px; }
 
         .opt.sel .opt-mark {
             border-color: var(--accent);
@@ -465,16 +463,6 @@
             position: absolute;
             top: 50%; left: 50%;
             transform: translate(-50%, -50%);
-        }
-
-        .opt.sel .opt-mark:not(.check)::after {
-            width: 6px;
-            height: 6px;
-            background: #fff;
-            border-radius: 50%;
-        }
-
-        .opt.sel .opt-mark.check::after {
             width: 10px;
             height: 10px;
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 12 12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2.5 6L5 8.5L9.5 4' stroke='%23fff' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
@@ -760,11 +748,11 @@
                 <div class="card" data-q="biz-1">
                     <label class="q-label"><span class="q-num">1</span><span class="q-text">What's the current state of Whispir infrastructure?</span></label>
                     <div class="opts">
-                        <label class="opt"><input type="radio" name="whispir-status" value="migrated"><span class="opt-mark"></span><span class="opt-text">Fully migrated into Soprano infrastructure</span></label>
-                        <label class="opt"><input type="radio" name="whispir-status" value="separate"><span class="opt-mark"></span><span class="opt-text">Still running as separate AWS accounts</span></label>
-                        <label class="opt"><input type="radio" name="whispir-status" value="hybrid"><span class="opt-mark"></span><span class="opt-text">Hybrid - some migrated, some standalone</span></label>
-                        <label class="opt"><input type="radio" name="whispir-status" value="unknown"><span class="opt-mark"></span><span class="opt-text">Not sure / need to check</span></label>
-                        <label class="opt"><input type="radio" name="whispir-status" value="other"><span class="opt-mark"></span><span class="opt-text">Other</span></label>
+                        <label class="opt"><input type="checkbox" name="whispir-status" value="migrated"><span class="opt-mark check"></span><span class="opt-text">Fully migrated into Soprano infrastructure</span></label>
+                        <label class="opt"><input type="checkbox" name="whispir-status" value="separate"><span class="opt-mark check"></span><span class="opt-text">Still running as separate AWS accounts</span></label>
+                        <label class="opt"><input type="checkbox" name="whispir-status" value="hybrid"><span class="opt-mark check"></span><span class="opt-text">Hybrid - some migrated, some standalone</span></label>
+                        <label class="opt"><input type="checkbox" name="whispir-status" value="unknown"><span class="opt-mark check"></span><span class="opt-text">Not sure / need to check</span></label>
+                        <label class="opt"><input type="checkbox" name="whispir-status" value="other"><span class="opt-mark check"></span><span class="opt-text">Other</span></label>
                         <input type="text" class="other-input" name="whispir-status-other" placeholder="Please specify...">
                     </div>
                 </div>
@@ -772,11 +760,11 @@
                 <div class="card" data-q="biz-2">
                     <label class="q-label"><span class="q-num">2</span><span class="q-text">Are Whispir's APIs and customer portal still live and accepting traffic?</span></label>
                     <div class="opts">
-                        <label class="opt"><input type="radio" name="whispir-apis" value="live"><span class="opt-mark"></span><span class="opt-text">Yes, still accepting traffic</span></label>
-                        <label class="opt"><input type="radio" name="whispir-apis" value="redirected"><span class="opt-mark"></span><span class="opt-text">Redirecting to Soprano Connect</span></label>
-                        <label class="opt"><input type="radio" name="whispir-apis" value="shutdown"><span class="opt-mark"></span><span class="opt-text">Fully shut down</span></label>
-                        <label class="opt"><input type="radio" name="whispir-apis" value="unknown"><span class="opt-mark"></span><span class="opt-text">Not sure</span></label>
-                        <label class="opt"><input type="radio" name="whispir-apis" value="other"><span class="opt-mark"></span><span class="opt-text">Other</span></label>
+                        <label class="opt"><input type="checkbox" name="whispir-apis" value="live"><span class="opt-mark check"></span><span class="opt-text">Yes, still accepting traffic</span></label>
+                        <label class="opt"><input type="checkbox" name="whispir-apis" value="redirected"><span class="opt-mark check"></span><span class="opt-text">Redirecting to Soprano Connect</span></label>
+                        <label class="opt"><input type="checkbox" name="whispir-apis" value="shutdown"><span class="opt-mark check"></span><span class="opt-text">Fully shut down</span></label>
+                        <label class="opt"><input type="checkbox" name="whispir-apis" value="unknown"><span class="opt-mark check"></span><span class="opt-text">Not sure</span></label>
+                        <label class="opt"><input type="checkbox" name="whispir-apis" value="other"><span class="opt-mark check"></span><span class="opt-text">Other</span></label>
                         <input type="text" class="other-input" name="whispir-apis-other" placeholder="Please specify...">
                     </div>
                 </div>
@@ -788,11 +776,11 @@
                 <div class="card" data-q="biz-3">
                     <label class="q-label"><span class="q-num">3</span><span class="q-text">Where does the Ubisend platform run today?</span></label>
                     <div class="opts">
-                        <label class="opt"><input type="radio" name="ubisend-hosting" value="uk"><span class="opt-mark"></span><span class="opt-text">Still in original UK infrastructure</span></label>
-                        <label class="opt"><input type="radio" name="ubisend-hosting" value="consolidated"><span class="opt-mark"></span><span class="opt-text">Consolidated into main Soprano infrastructure</span></label>
-                        <label class="opt"><input type="radio" name="ubisend-hosting" value="hybrid"><span class="opt-mark"></span><span class="opt-text">Mix of both</span></label>
-                        <label class="opt"><input type="radio" name="ubisend-hosting" value="unknown"><span class="opt-mark"></span><span class="opt-text">Not sure</span></label>
-                        <label class="opt"><input type="radio" name="ubisend-hosting" value="other"><span class="opt-mark"></span><span class="opt-text">Other</span></label>
+                        <label class="opt"><input type="checkbox" name="ubisend-hosting" value="uk"><span class="opt-mark check"></span><span class="opt-text">Still in original UK infrastructure</span></label>
+                        <label class="opt"><input type="checkbox" name="ubisend-hosting" value="consolidated"><span class="opt-mark check"></span><span class="opt-text">Consolidated into main Soprano infrastructure</span></label>
+                        <label class="opt"><input type="checkbox" name="ubisend-hosting" value="hybrid"><span class="opt-mark check"></span><span class="opt-text">Mix of both</span></label>
+                        <label class="opt"><input type="checkbox" name="ubisend-hosting" value="unknown"><span class="opt-mark check"></span><span class="opt-text">Not sure</span></label>
+                        <label class="opt"><input type="checkbox" name="ubisend-hosting" value="other"><span class="opt-mark check"></span><span class="opt-text">Other</span></label>
                         <input type="text" class="other-input" name="ubisend-hosting-other" placeholder="Please specify...">
                     </div>
                 </div>
@@ -800,10 +788,10 @@
                 <div class="card" data-q="biz-4">
                     <label class="q-label"><span class="q-num">4</span><span class="q-text">Does the UK team still manage Ubisend independently?</span></label>
                     <div class="opts">
-                        <label class="opt"><input type="radio" name="ubisend-mgmt" value="uk"><span class="opt-mark"></span><span class="opt-text">UK team manages independently</span></label>
-                        <label class="opt"><input type="radio" name="ubisend-mgmt" value="central"><span class="opt-mark"></span><span class="opt-text">Now under central IT</span></label>
-                        <label class="opt"><input type="radio" name="ubisend-mgmt" value="shared"><span class="opt-mark"></span><span class="opt-text">Shared responsibility</span></label>
-                        <label class="opt"><input type="radio" name="ubisend-mgmt" value="other"><span class="opt-mark"></span><span class="opt-text">Other</span></label>
+                        <label class="opt"><input type="checkbox" name="ubisend-mgmt" value="uk"><span class="opt-mark check"></span><span class="opt-text">UK team manages independently</span></label>
+                        <label class="opt"><input type="checkbox" name="ubisend-mgmt" value="central"><span class="opt-mark check"></span><span class="opt-text">Now under central IT</span></label>
+                        <label class="opt"><input type="checkbox" name="ubisend-mgmt" value="shared"><span class="opt-mark check"></span><span class="opt-text">Shared responsibility</span></label>
+                        <label class="opt"><input type="checkbox" name="ubisend-mgmt" value="other"><span class="opt-mark check"></span><span class="opt-text">Other</span></label>
                         <input type="text" class="other-input" name="ubisend-mgmt-other" placeholder="Please specify...">
                     </div>
                 </div>
@@ -815,11 +803,11 @@
                 <div class="card" data-q="biz-5">
                     <label class="q-label"><span class="q-num">5</span><span class="q-text">Are Singapore and Malaysia still operating as separate regional messaging hubs?</span></label>
                     <div class="opts">
-                        <label class="opt"><input type="radio" name="apac-status" value="separate"><span class="opt-mark"></span><span class="opt-text">Yes, still independent hubs with their own carrier connections</span></label>
-                        <label class="opt"><input type="radio" name="apac-status" value="consolidated"><span class="opt-mark"></span><span class="opt-text">Fully consolidated into Soprano Connect</span></label>
-                        <label class="opt"><input type="radio" name="apac-status" value="partial"><span class="opt-mark"></span><span class="opt-text">Partially consolidated</span></label>
-                        <label class="opt"><input type="radio" name="apac-status" value="unknown"><span class="opt-mark"></span><span class="opt-text">Not sure</span></label>
-                        <label class="opt"><input type="radio" name="apac-status" value="other"><span class="opt-mark"></span><span class="opt-text">Other</span></label>
+                        <label class="opt"><input type="checkbox" name="apac-status" value="separate"><span class="opt-mark check"></span><span class="opt-text">Yes, still independent hubs with their own carrier connections</span></label>
+                        <label class="opt"><input type="checkbox" name="apac-status" value="consolidated"><span class="opt-mark check"></span><span class="opt-text">Fully consolidated into Soprano Connect</span></label>
+                        <label class="opt"><input type="checkbox" name="apac-status" value="partial"><span class="opt-mark check"></span><span class="opt-text">Partially consolidated</span></label>
+                        <label class="opt"><input type="checkbox" name="apac-status" value="unknown"><span class="opt-mark check"></span><span class="opt-text">Not sure</span></label>
+                        <label class="opt"><input type="checkbox" name="apac-status" value="other"><span class="opt-mark check"></span><span class="opt-text">Other</span></label>
                         <input type="text" class="other-input" name="apac-status-other" placeholder="Please specify...">
                     </div>
                 </div>
@@ -827,10 +815,10 @@
                 <div class="card" data-q="biz-6">
                     <label class="q-label"><span class="q-num">6</span><span class="q-text">Do Singapore/Malaysia have their own IT staff making configuration changes?</span></label>
                     <div class="opts">
-                        <label class="opt"><input type="radio" name="apac-staff" value="local"><span class="opt-mark"></span><span class="opt-text">Yes, local staff manage routing and carrier connections</span></label>
-                        <label class="opt"><input type="radio" name="apac-staff" value="central"><span class="opt-mark"></span><span class="opt-text">No, all managed centrally</span></label>
-                        <label class="opt"><input type="radio" name="apac-staff" value="mixed"><span class="opt-mark"></span><span class="opt-text">Mix - some local, some central</span></label>
-                        <label class="opt"><input type="radio" name="apac-staff" value="other"><span class="opt-mark"></span><span class="opt-text">Other</span></label>
+                        <label class="opt"><input type="checkbox" name="apac-staff" value="local"><span class="opt-mark check"></span><span class="opt-text">Yes, local staff manage routing and carrier connections</span></label>
+                        <label class="opt"><input type="checkbox" name="apac-staff" value="central"><span class="opt-mark check"></span><span class="opt-text">No, all managed centrally</span></label>
+                        <label class="opt"><input type="checkbox" name="apac-staff" value="mixed"><span class="opt-mark check"></span><span class="opt-text">Mix - some local, some central</span></label>
+                        <label class="opt"><input type="checkbox" name="apac-staff" value="other"><span class="opt-mark check"></span><span class="opt-text">Other</span></label>
                         <input type="text" class="other-input" name="apac-staff-other" placeholder="Please specify...">
                     </div>
                 </div>
@@ -842,10 +830,10 @@
                 <div class="card" data-q="biz-7">
                     <label class="q-label"><span class="q-num">7</span><span class="q-text">Are there systems officially "end of life" but still running because customers haven't migrated?<span class="q-hint">These are often overlooked but still need monitoring</span></span></label>
                     <div class="opts">
-                        <label class="opt"><input type="radio" name="legacy-eol" value="yes"><span class="opt-mark"></span><span class="opt-text">Yes, there are some</span></label>
-                        <label class="opt"><input type="radio" name="legacy-eol" value="no"><span class="opt-mark"></span><span class="opt-text">No, everything old has been decommissioned</span></label>
-                        <label class="opt"><input type="radio" name="legacy-eol" value="unknown"><span class="opt-mark"></span><span class="opt-text">Not sure</span></label>
-                        <label class="opt"><input type="radio" name="legacy-eol" value="other"><span class="opt-mark"></span><span class="opt-text">Other</span></label>
+                        <label class="opt"><input type="checkbox" name="legacy-eol" value="yes"><span class="opt-mark check"></span><span class="opt-text">Yes, there are some</span></label>
+                        <label class="opt"><input type="checkbox" name="legacy-eol" value="no"><span class="opt-mark check"></span><span class="opt-text">No, everything old has been decommissioned</span></label>
+                        <label class="opt"><input type="checkbox" name="legacy-eol" value="unknown"><span class="opt-mark check"></span><span class="opt-text">Not sure</span></label>
+                        <label class="opt"><input type="checkbox" name="legacy-eol" value="other"><span class="opt-mark check"></span><span class="opt-text">Other</span></label>
                         <input type="text" class="other-input" name="legacy-eol-other" placeholder="Please specify...">
                     </div>
                 </div>
@@ -907,10 +895,10 @@
             <div class="card" data-q="infra-5">
                 <label class="q-label"><span class="q-num">5</span><span class="q-text">Does the WAF protect all internet-facing services, or just specific applications?</span></label>
                 <div class="opts">
-                    <label class="opt"><input type="radio" name="waf-coverage" value="all"><span class="opt-mark"></span><span class="opt-text">Covers everything internet-facing</span></label>
-                    <label class="opt"><input type="radio" name="waf-coverage" value="partial"><span class="opt-mark"></span><span class="opt-text">Only specific applications (some bypass it)</span></label>
-                    <label class="opt"><input type="radio" name="waf-coverage" value="unknown"><span class="opt-mark"></span><span class="opt-text">Not sure</span></label>
-                    <label class="opt"><input type="radio" name="waf-coverage" value="other"><span class="opt-mark"></span><span class="opt-text">Other</span></label>
+                    <label class="opt"><input type="checkbox" name="waf-coverage" value="all"><span class="opt-mark check"></span><span class="opt-text">Covers everything internet-facing</span></label>
+                    <label class="opt"><input type="checkbox" name="waf-coverage" value="partial"><span class="opt-mark check"></span><span class="opt-text">Only specific applications (some bypass it)</span></label>
+                    <label class="opt"><input type="checkbox" name="waf-coverage" value="unknown"><span class="opt-mark check"></span><span class="opt-text">Not sure</span></label>
+                    <label class="opt"><input type="checkbox" name="waf-coverage" value="other"><span class="opt-mark check"></span><span class="opt-text">Other</span></label>
                     <input type="text" class="other-input" name="waf-coverage-other" placeholder="Please specify...">
                 </div>
             </div>
@@ -923,10 +911,10 @@
             <div class="card" data-q="infra-7">
                 <label class="q-label"><span class="q-num">7</span><span class="q-text">What collaboration and email platform is in use?</span></label>
                 <div class="opts">
-                    <label class="opt"><input type="radio" name="collab-platform" value="m365"><span class="opt-mark"></span><span class="opt-text">Microsoft 365 (Exchange, Teams, SharePoint)</span></label>
-                    <label class="opt"><input type="radio" name="collab-platform" value="google"><span class="opt-mark"></span><span class="opt-text">Google Workspace</span></label>
-                    <label class="opt"><input type="radio" name="collab-platform" value="mixed"><span class="opt-mark"></span><span class="opt-text">Mix - different platforms across teams or regions</span></label>
-                    <label class="opt"><input type="radio" name="collab-platform" value="other"><span class="opt-mark"></span><span class="opt-text">Other</span></label>
+                    <label class="opt"><input type="checkbox" name="collab-platform" value="m365"><span class="opt-mark check"></span><span class="opt-text">Microsoft 365 (Exchange, Teams, SharePoint)</span></label>
+                    <label class="opt"><input type="checkbox" name="collab-platform" value="google"><span class="opt-mark check"></span><span class="opt-text">Google Workspace</span></label>
+                    <label class="opt"><input type="checkbox" name="collab-platform" value="mixed"><span class="opt-mark check"></span><span class="opt-text">Mix - different platforms across teams or regions</span></label>
+                    <label class="opt"><input type="checkbox" name="collab-platform" value="other"><span class="opt-mark check"></span><span class="opt-text">Other</span></label>
                     <input type="text" class="other-input" name="collab-platform-other" placeholder="Please specify...">
                 </div>
             </div>
@@ -934,11 +922,11 @@
             <div class="card" data-q="infra-8">
                 <label class="q-label"><span class="q-num">8</span><span class="q-text">Is there network segmentation between production, corporate, and development environments?</span></label>
                 <div class="opts">
-                    <label class="opt"><input type="radio" name="network-seg" value="full"><span class="opt-mark"></span><span class="opt-text">Yes, fully segmented with firewall rules between zones</span></label>
-                    <label class="opt"><input type="radio" name="network-seg" value="partial"><span class="opt-mark"></span><span class="opt-text">Partially - some separation but not consistently enforced</span></label>
-                    <label class="opt"><input type="radio" name="network-seg" value="flat"><span class="opt-mark"></span><span class="opt-text">Mostly flat - limited segmentation</span></label>
-                    <label class="opt"><input type="radio" name="network-seg" value="unknown"><span class="opt-mark"></span><span class="opt-text">Not sure</span></label>
-                    <label class="opt"><input type="radio" name="network-seg" value="other"><span class="opt-mark"></span><span class="opt-text">Other</span></label>
+                    <label class="opt"><input type="checkbox" name="network-seg" value="full"><span class="opt-mark check"></span><span class="opt-text">Yes, fully segmented with firewall rules between zones</span></label>
+                    <label class="opt"><input type="checkbox" name="network-seg" value="partial"><span class="opt-mark check"></span><span class="opt-text">Partially - some separation but not consistently enforced</span></label>
+                    <label class="opt"><input type="checkbox" name="network-seg" value="flat"><span class="opt-mark check"></span><span class="opt-text">Mostly flat - limited segmentation</span></label>
+                    <label class="opt"><input type="checkbox" name="network-seg" value="unknown"><span class="opt-mark check"></span><span class="opt-text">Not sure</span></label>
+                    <label class="opt"><input type="checkbox" name="network-seg" value="other"><span class="opt-mark check"></span><span class="opt-text">Other</span></label>
                     <input type="text" class="other-input" name="network-seg-other" placeholder="Please specify...">
                 </div>
             </div>
@@ -964,11 +952,11 @@
             <div class="card" data-q="id-1">
                 <label class="q-label"><span class="q-num">1</span><span class="q-text">Is everyone across all regions authenticating through a central identity provider?</span></label>
                 <div class="opts">
-                    <label class="opt"><input type="radio" name="central-idp" value="yes-entra"><span class="opt-mark"></span><span class="opt-text">Yes, everyone uses Entra ID (Azure AD)</span></label>
-                    <label class="opt"><input type="radio" name="central-idp" value="yes-other"><span class="opt-mark"></span><span class="opt-text">Yes, but different IdP (Okta, etc.)</span></label>
-                    <label class="opt"><input type="radio" name="central-idp" value="mostly"><span class="opt-mark"></span><span class="opt-text">Mostly, but some teams have separate directories</span></label>
-                    <label class="opt"><input type="radio" name="central-idp" value="fragmented"><span class="opt-mark"></span><span class="opt-text">Fragmented - different regions use different systems</span></label>
-                    <label class="opt"><input type="radio" name="central-idp" value="other"><span class="opt-mark"></span><span class="opt-text">Other</span></label>
+                    <label class="opt"><input type="checkbox" name="central-idp" value="yes-entra"><span class="opt-mark check"></span><span class="opt-text">Yes, everyone uses Entra ID (Azure AD)</span></label>
+                    <label class="opt"><input type="checkbox" name="central-idp" value="yes-other"><span class="opt-mark check"></span><span class="opt-text">Yes, but different IdP (Okta, etc.)</span></label>
+                    <label class="opt"><input type="checkbox" name="central-idp" value="mostly"><span class="opt-mark check"></span><span class="opt-text">Mostly, but some teams have separate directories</span></label>
+                    <label class="opt"><input type="checkbox" name="central-idp" value="fragmented"><span class="opt-mark check"></span><span class="opt-text">Fragmented - different regions use different systems</span></label>
+                    <label class="opt"><input type="checkbox" name="central-idp" value="other"><span class="opt-mark check"></span><span class="opt-text">Other</span></label>
                     <input type="text" class="other-input" name="central-idp-other" placeholder="Please specify...">
                 </div>
             </div>
@@ -976,11 +964,11 @@
             <div class="card" data-q="id-2">
                 <label class="q-label"><span class="q-num">2</span><span class="q-text">For production systems, is privileged access tracked?</span></label>
                 <div class="opts">
-                    <label class="opt"><input type="radio" name="priv-access" value="pam"><span class="opt-mark"></span><span class="opt-text">Yes, through a PAM solution</span></label>
-                    <label class="opt"><input type="radio" name="priv-access" value="documented"><span class="opt-mark"></span><span class="opt-text">Documented but not centrally managed</span></label>
-                    <label class="opt"><input type="radio" name="priv-access" value="tribal"><span class="opt-mark"></span><span class="opt-text">Tribal knowledge - key people know who has access</span></label>
-                    <label class="opt"><input type="radio" name="priv-access" value="unknown"><span class="opt-mark"></span><span class="opt-text">Not consistently tracked</span></label>
-                    <label class="opt"><input type="radio" name="priv-access" value="other"><span class="opt-mark"></span><span class="opt-text">Other</span></label>
+                    <label class="opt"><input type="checkbox" name="priv-access" value="pam"><span class="opt-mark check"></span><span class="opt-text">Yes, through a PAM solution</span></label>
+                    <label class="opt"><input type="checkbox" name="priv-access" value="documented"><span class="opt-mark check"></span><span class="opt-text">Documented but not centrally managed</span></label>
+                    <label class="opt"><input type="checkbox" name="priv-access" value="tribal"><span class="opt-mark check"></span><span class="opt-text">Tribal knowledge - key people know who has access</span></label>
+                    <label class="opt"><input type="checkbox" name="priv-access" value="unknown"><span class="opt-mark check"></span><span class="opt-text">Not consistently tracked</span></label>
+                    <label class="opt"><input type="checkbox" name="priv-access" value="other"><span class="opt-mark check"></span><span class="opt-text">Other</span></label>
                     <input type="text" class="other-input" name="priv-access-other" placeholder="Please specify...">
                 </div>
             </div>
@@ -1000,11 +988,11 @@
             <div class="card" data-q="id-4">
                 <label class="q-label"><span class="q-num">4</span><span class="q-text">When someone leaves, how confident are you access is revoked across all systems?<span class="q-hint">Including all platforms, regional systems, service accounts</span></span></label>
                 <div class="opts">
-                    <label class="opt"><input type="radio" name="offboarding" value="very"><span class="opt-mark"></span><span class="opt-text">Very confident - automated process covers everything</span></label>
-                    <label class="opt"><input type="radio" name="offboarding" value="mostly"><span class="opt-mark"></span><span class="opt-text">Mostly confident - main systems covered, might miss edge cases</span></label>
-                    <label class="opt"><input type="radio" name="offboarding" value="not"><span class="opt-mark"></span><span class="opt-text">Not very confident - manual process, things get missed</span></label>
-                    <label class="opt"><input type="radio" name="offboarding" value="unknown"><span class="opt-mark"></span><span class="opt-text">Honestly not sure</span></label>
-                    <label class="opt"><input type="radio" name="offboarding" value="other"><span class="opt-mark"></span><span class="opt-text">Other</span></label>
+                    <label class="opt"><input type="checkbox" name="offboarding" value="very"><span class="opt-mark check"></span><span class="opt-text">Very confident - automated process covers everything</span></label>
+                    <label class="opt"><input type="checkbox" name="offboarding" value="mostly"><span class="opt-mark check"></span><span class="opt-text">Mostly confident - main systems covered, might miss edge cases</span></label>
+                    <label class="opt"><input type="checkbox" name="offboarding" value="not"><span class="opt-mark check"></span><span class="opt-text">Not very confident - manual process, things get missed</span></label>
+                    <label class="opt"><input type="checkbox" name="offboarding" value="unknown"><span class="opt-mark check"></span><span class="opt-text">Honestly not sure</span></label>
+                    <label class="opt"><input type="checkbox" name="offboarding" value="other"><span class="opt-mark check"></span><span class="opt-text">Other</span></label>
                     <input type="text" class="other-input" name="offboarding-other" placeholder="Please specify...">
                 </div>
             </div>
@@ -1043,11 +1031,11 @@
             <div class="card" data-q="plat-2">
                 <label class="q-label"><span class="q-num">2</span><span class="q-text">For OTP/2FA messages, is the OTP content visible in any logs or masked?</span></label>
                 <div class="opts">
-                    <label class="opt"><input type="radio" name="otp-visibility" value="masked"><span class="opt-mark"></span><span class="opt-text">Always masked in logs</span></label>
-                    <label class="opt"><input type="radio" name="otp-visibility" value="some"><span class="opt-mark"></span><span class="opt-text">Visible in some places (debug logs)</span></label>
-                    <label class="opt"><input type="radio" name="otp-visibility" value="visible"><span class="opt-mark"></span><span class="opt-text">Visible in logs</span></label>
-                    <label class="opt"><input type="radio" name="otp-visibility" value="unknown"><span class="opt-mark"></span><span class="opt-text">Not sure</span></label>
-                    <label class="opt"><input type="radio" name="otp-visibility" value="other"><span class="opt-mark"></span><span class="opt-text">Other</span></label>
+                    <label class="opt"><input type="checkbox" name="otp-visibility" value="masked"><span class="opt-mark check"></span><span class="opt-text">Always masked in logs</span></label>
+                    <label class="opt"><input type="checkbox" name="otp-visibility" value="some"><span class="opt-mark check"></span><span class="opt-text">Visible in some places (debug logs)</span></label>
+                    <label class="opt"><input type="checkbox" name="otp-visibility" value="visible"><span class="opt-mark check"></span><span class="opt-text">Visible in logs</span></label>
+                    <label class="opt"><input type="checkbox" name="otp-visibility" value="unknown"><span class="opt-mark check"></span><span class="opt-text">Not sure</span></label>
+                    <label class="opt"><input type="checkbox" name="otp-visibility" value="other"><span class="opt-mark check"></span><span class="opt-text">Other</span></label>
                     <input type="text" class="other-input" name="otp-visibility-other" placeholder="Please specify...">
                 </div>
             </div>
@@ -1055,11 +1043,11 @@
             <div class="card" data-q="plat-3">
                 <label class="q-label"><span class="q-num">3</span><span class="q-text">Where are customer API keys and portal credentials stored?</span></label>
                 <div class="opts">
-                    <label class="opt"><input type="radio" name="cred-storage" value="secrets"><span class="opt-mark"></span><span class="opt-text">Dedicated secrets manager (Vault, AWS Secrets Manager)</span></label>
-                    <label class="opt"><input type="radio" name="cred-storage" value="encrypted-db"><span class="opt-mark"></span><span class="opt-text">Encrypted in application database</span></label>
-                    <label class="opt"><input type="radio" name="cred-storage" value="config"><span class="opt-mark"></span><span class="opt-text">Application config files</span></label>
-                    <label class="opt"><input type="radio" name="cred-storage" value="unknown"><span class="opt-mark"></span><span class="opt-text">Not sure</span></label>
-                    <label class="opt"><input type="radio" name="cred-storage" value="other"><span class="opt-mark"></span><span class="opt-text">Other</span></label>
+                    <label class="opt"><input type="checkbox" name="cred-storage" value="secrets"><span class="opt-mark check"></span><span class="opt-text">Dedicated secrets manager (Vault, AWS Secrets Manager)</span></label>
+                    <label class="opt"><input type="checkbox" name="cred-storage" value="encrypted-db"><span class="opt-mark check"></span><span class="opt-text">Encrypted in application database</span></label>
+                    <label class="opt"><input type="checkbox" name="cred-storage" value="config"><span class="opt-mark check"></span><span class="opt-text">Application config files</span></label>
+                    <label class="opt"><input type="checkbox" name="cred-storage" value="unknown"><span class="opt-mark check"></span><span class="opt-text">Not sure</span></label>
+                    <label class="opt"><input type="checkbox" name="cred-storage" value="other"><span class="opt-mark check"></span><span class="opt-text">Other</span></label>
                     <input type="text" class="other-input" name="cred-storage-other" placeholder="Please specify...">
                 </div>
             </div>
@@ -1111,11 +1099,11 @@
             <div class="card" data-q="ep-2">
                 <label class="q-label"><span class="q-num">2</span><span class="q-text">Who monitors CrowdStrike alerts today?</span></label>
                 <div class="opts">
-                    <label class="opt"><input type="radio" name="cs-monitoring" value="dedicated"><span class="opt-mark"></span><span class="opt-text">Dedicated person/team reviews regularly</span></label>
-                    <label class="opt"><input type="radio" name="cs-monitoring" value="it-team"><span class="opt-mark"></span><span class="opt-text">IT team checks when they have time</span></label>
-                    <label class="opt"><input type="radio" name="cs-monitoring" value="reactive"><span class="opt-mark"></span><span class="opt-text">Only looked at when something breaks</span></label>
-                    <label class="opt"><input type="radio" name="cs-monitoring" value="nobody"><span class="opt-mark"></span><span class="opt-text">Alerts are accumulating unactioned</span></label>
-                    <label class="opt"><input type="radio" name="cs-monitoring" value="other"><span class="opt-mark"></span><span class="opt-text">Other</span></label>
+                    <label class="opt"><input type="checkbox" name="cs-monitoring" value="dedicated"><span class="opt-mark check"></span><span class="opt-text">Dedicated person/team reviews regularly</span></label>
+                    <label class="opt"><input type="checkbox" name="cs-monitoring" value="it-team"><span class="opt-mark check"></span><span class="opt-text">IT team checks when they have time</span></label>
+                    <label class="opt"><input type="checkbox" name="cs-monitoring" value="reactive"><span class="opt-mark check"></span><span class="opt-text">Only looked at when something breaks</span></label>
+                    <label class="opt"><input type="checkbox" name="cs-monitoring" value="nobody"><span class="opt-mark check"></span><span class="opt-text">Alerts are accumulating unactioned</span></label>
+                    <label class="opt"><input type="checkbox" name="cs-monitoring" value="other"><span class="opt-mark check"></span><span class="opt-text">Other</span></label>
                     <input type="text" class="other-input" name="cs-monitoring-other" placeholder="Please specify...">
                 </div>
             </div>
@@ -1136,10 +1124,10 @@
             <div class="card" data-q="ep-4">
                 <label class="q-label"><span class="q-num">4</span><span class="q-text">If CrowdStrike detected a compromise, how would your MDR provider be notified?</span></label>
                 <div class="opts">
-                    <label class="opt"><input type="radio" name="cs-escalation" value="auto"><span class="opt-mark"></span><span class="opt-text">Automatically - integrated alerting is in place</span></label>
-                    <label class="opt"><input type="radio" name="cs-escalation" value="manual"><span class="opt-mark"></span><span class="opt-text">Manually - our team would escalate it</span></label>
-                    <label class="opt"><input type="radio" name="cs-escalation" value="no-path"><span class="opt-mark"></span><span class="opt-text">No notification path exists currently</span></label>
-                    <label class="opt"><input type="radio" name="cs-escalation" value="other"><span class="opt-mark"></span><span class="opt-text">Other</span></label>
+                    <label class="opt"><input type="checkbox" name="cs-escalation" value="auto"><span class="opt-mark check"></span><span class="opt-text">Automatically - integrated alerting is in place</span></label>
+                    <label class="opt"><input type="checkbox" name="cs-escalation" value="manual"><span class="opt-mark check"></span><span class="opt-text">Manually - our team would escalate it</span></label>
+                    <label class="opt"><input type="checkbox" name="cs-escalation" value="no-path"><span class="opt-mark check"></span><span class="opt-text">No notification path exists currently</span></label>
+                    <label class="opt"><input type="checkbox" name="cs-escalation" value="other"><span class="opt-mark check"></span><span class="opt-text">Other</span></label>
                     <input type="text" class="other-input" name="cs-escalation-other" placeholder="Please specify...">
                 </div>
             </div>
@@ -1214,11 +1202,11 @@
             <div class="card" data-q="ops-1">
                 <label class="q-label"><span class="q-num">1</span><span class="q-text">How much capacity does the team have for dedicated security work?</span></label>
                 <div class="opts">
-                    <label class="opt"><input type="radio" name="capacity" value="dedicated"><span class="opt-mark"></span><span class="opt-text">We have dedicated time for security</span></label>
-                    <label class="opt"><input type="radio" name="capacity" value="some"><span class="opt-mark"></span><span class="opt-text">A few hours per week when things are quiet</span></label>
-                    <label class="opt"><input type="radio" name="capacity" value="reactive"><span class="opt-mark"></span><span class="opt-text">Mostly reactive - only when something happens</span></label>
-                    <label class="opt"><input type="radio" name="capacity" value="none"><span class="opt-mark"></span><span class="opt-text">Very limited - keeping lights on takes everything</span></label>
-                    <label class="opt"><input type="radio" name="capacity" value="other"><span class="opt-mark"></span><span class="opt-text">Other</span></label>
+                    <label class="opt"><input type="checkbox" name="capacity" value="dedicated"><span class="opt-mark check"></span><span class="opt-text">We have dedicated time for security</span></label>
+                    <label class="opt"><input type="checkbox" name="capacity" value="some"><span class="opt-mark check"></span><span class="opt-text">A few hours per week when things are quiet</span></label>
+                    <label class="opt"><input type="checkbox" name="capacity" value="reactive"><span class="opt-mark check"></span><span class="opt-text">Mostly reactive - only when something happens</span></label>
+                    <label class="opt"><input type="checkbox" name="capacity" value="none"><span class="opt-mark check"></span><span class="opt-text">Very limited - keeping lights on takes everything</span></label>
+                    <label class="opt"><input type="checkbox" name="capacity" value="other"><span class="opt-mark check"></span><span class="opt-text">Other</span></label>
                     <input type="text" class="other-input" name="capacity-other" placeholder="Please specify...">
                 </div>
             </div>
@@ -1226,11 +1214,11 @@
             <div class="card" data-q="ops-2">
                 <label class="q-label"><span class="q-num">2</span><span class="q-text">If alert volume from Sentinel increases, is there capacity to respond?</span></label>
                 <div class="opts">
-                    <label class="opt"><input type="radio" name="alert-capacity" value="yes"><span class="opt-mark"></span><span class="opt-text">Yes, we can handle more alerts</span></label>
-                    <label class="opt"><input type="radio" name="alert-capacity" value="high-only"><span class="opt-mark"></span><span class="opt-text">Only if they're high priority and actionable</span></label>
-                    <label class="opt"><input type="radio" name="alert-capacity" value="struggle"><span class="opt-mark"></span><span class="opt-text">We'd struggle - already have alert fatigue</span></label>
-                    <label class="opt"><input type="radio" name="alert-capacity" value="no"><span class="opt-mark"></span><span class="opt-text">No - prefer the MDR provider handles more</span></label>
-                    <label class="opt"><input type="radio" name="alert-capacity" value="other"><span class="opt-mark"></span><span class="opt-text">Other</span></label>
+                    <label class="opt"><input type="checkbox" name="alert-capacity" value="yes"><span class="opt-mark check"></span><span class="opt-text">Yes, we can handle more alerts</span></label>
+                    <label class="opt"><input type="checkbox" name="alert-capacity" value="high-only"><span class="opt-mark check"></span><span class="opt-text">Only if they're high priority and actionable</span></label>
+                    <label class="opt"><input type="checkbox" name="alert-capacity" value="struggle"><span class="opt-mark check"></span><span class="opt-text">We'd struggle - already have alert fatigue</span></label>
+                    <label class="opt"><input type="checkbox" name="alert-capacity" value="no"><span class="opt-mark check"></span><span class="opt-text">No - prefer the MDR provider handles more</span></label>
+                    <label class="opt"><input type="checkbox" name="alert-capacity" value="other"><span class="opt-mark check"></span><span class="opt-text">Other</span></label>
                     <input type="text" class="other-input" name="alert-capacity-other" placeholder="Please specify...">
                 </div>
             </div>
@@ -1261,11 +1249,11 @@
             <div class="card" data-q="ops-6">
                 <label class="q-label"><span class="q-num">6</span><span class="q-text">Has Soprano or any of its subsidiaries experienced security incidents in the past 12 months?<span class="q-hint">Including Whispir, Ubisend, APAC operations, or any other business unit</span></span></label>
                 <div class="opts">
-                    <label class="opt"><input type="radio" name="past-incidents" value="yes-major"><span class="opt-mark"></span><span class="opt-text">Yes, a significant incident (breach, ransomware, data loss)</span></label>
-                    <label class="opt"><input type="radio" name="past-incidents" value="yes-minor"><span class="opt-mark"></span><span class="opt-text">Yes, but minor (phishing attempts, blocked attacks)</span></label>
-                    <label class="opt"><input type="radio" name="past-incidents" value="no"><span class="opt-mark"></span><span class="opt-text">No incidents that we're aware of</span></label>
-                    <label class="opt"><input type="radio" name="past-incidents" value="prefer-not"><span class="opt-mark"></span><span class="opt-text">Prefer to discuss in person</span></label>
-                    <label class="opt"><input type="radio" name="past-incidents" value="other"><span class="opt-mark"></span><span class="opt-text">Other</span></label>
+                    <label class="opt"><input type="checkbox" name="past-incidents" value="yes-major"><span class="opt-mark check"></span><span class="opt-text">Yes, a significant incident (breach, ransomware, data loss)</span></label>
+                    <label class="opt"><input type="checkbox" name="past-incidents" value="yes-minor"><span class="opt-mark check"></span><span class="opt-text">Yes, but minor (phishing attempts, blocked attacks)</span></label>
+                    <label class="opt"><input type="checkbox" name="past-incidents" value="no"><span class="opt-mark check"></span><span class="opt-text">No incidents that we're aware of</span></label>
+                    <label class="opt"><input type="checkbox" name="past-incidents" value="prefer-not"><span class="opt-mark check"></span><span class="opt-text">Prefer to discuss in person</span></label>
+                    <label class="opt"><input type="checkbox" name="past-incidents" value="other"><span class="opt-mark check"></span><span class="opt-text">Other</span></label>
                     <input type="text" class="other-input" name="past-incidents-other" placeholder="Please specify...">
                 </div>
             </div>
@@ -1325,13 +1313,6 @@
 
         function setupListeners() {
             document.querySelectorAll('.tab').forEach(t => t.onclick = () => goTo(t.dataset.section));
-            document.querySelectorAll('input[type="radio"]').forEach(i => i.onchange = e => {
-                document.querySelectorAll(`input[name="${e.target.name}"]`).forEach(r => r.closest('.opt')?.classList.remove('sel'));
-                e.target.closest('.opt')?.classList.add('sel');
-                save(e.target.name, e.target.value);
-                toggleOtherInput(e.target.name, e.target.value === 'other');
-                markAnswered(e.target);
-            });
             document.querySelectorAll('input[type="checkbox"]').forEach(i => i.onchange = e => {
                 e.target.closest('.opt')?.classList.toggle('sel', e.target.checked);
                 const vals = [...document.querySelectorAll(`input[name="${e.target.name}"]:checked`)].map(c=>c.value);
@@ -1364,6 +1345,7 @@
 
         function restoreState() {
             Object.entries(responses).forEach(([k,v]) => {
+                // Handle array values (checkboxes)
                 if(Array.isArray(v)) {
                     v.forEach(val => {
                         const el = document.querySelector(`input[name="${k}"][value="${val}"]`);
@@ -1377,27 +1359,33 @@
                         }
                     }
                 }
-                else {
-                    const el = document.querySelector(`input[name="${k}"][value="${v}"]`) || document.querySelector(`[name="${k}"]`);
-                    if(el) {
-                        if(el.type==='radio') {
-                            el.checked = true;
-                            el.closest('.opt')?.classList.add('sel');
-                            if(v === 'other') {
-                                const otherInput = document.querySelector(`input.other-input[name="${k}-other"]`);
-                                if(otherInput) {
-                                    otherInput.classList.add('visible');
-                                    if(responses[k+'-other']) otherInput.value = responses[k+'-other'];
-                                }
+                // Handle single string values (textareas, text inputs, or legacy radio data)
+                else if(typeof v === 'string') {
+                    const checkbox = document.querySelector(`input[type="checkbox"][name="${k}"][value="${v}"]`);
+                    if(checkbox) {
+                        // Legacy single-value data from old radio buttons - restore as checked checkbox
+                        checkbox.checked = true;
+                        checkbox.closest('.opt')?.classList.add('sel');
+                        // Convert to array format for consistency going forward
+                        responses[k] = [v];
+                        if(v === 'other') {
+                            const otherInput = document.querySelector(`input.other-input[name="${k}-other"]`);
+                            if(otherInput) {
+                                otherInput.classList.add('visible');
+                                if(responses[k+'-other']) otherInput.value = responses[k+'-other'];
                             }
-                        } else {
-                            el.value = v;
                         }
+                    } else {
+                        // Textarea or text input
+                        const el = document.querySelector(`[name="${k}"]`);
+                        if(el) el.value = v;
                     }
                 }
                 const inp = document.querySelector(`[name="${k}"]`);
                 if(inp && v && (Array.isArray(v) ? v.length : true)) inp.closest('.card')?.classList.add('answered');
             });
+            // Save any migrated data back to localStorage
+            localStorage.setItem('soprano-discovery', JSON.stringify(responses));
         }
 
         function markAnswered(el) { el.closest('.card')?.classList.add('answered'); }
