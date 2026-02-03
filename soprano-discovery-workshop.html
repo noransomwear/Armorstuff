@@ -1271,11 +1271,26 @@
 
         <!-- COMPLETE -->
         <section class="section" id="s-complete">
-            <div class="complete">
+            <div class="complete" id="complete-sending">
+                <div class="complete-icon" style="background:var(--accent);">&#9993;</div>
+                <h2>Submitting...</h2>
+                <p style="color:var(--text-dim); margin-bottom:2rem; max-width:480px; margin-left:auto; margin-right:auto;">Sending your responses to the Armor team. Please wait a moment.</p>
+            </div>
+            <div class="complete" id="complete-success" style="display:none;">
                 <div class="complete-icon">&#10003;</div>
                 <h2>Thank You</h2>
-                <p style="color:var(--text-dim); margin-bottom:2rem; max-width:480px; margin-left:auto; margin-right:auto;">Your responses have been saved. We'll use these to prepare tailored findings and recommendations for your environment. Expect to hear from us shortly.</p>
-                <button class="btn btn-pri" onclick="downloadResponses()">Download a Copy</button>
+                <p style="color:var(--text-dim); margin-bottom:2rem; max-width:480px; margin-left:auto; margin-right:auto;">Your responses have been submitted to the Armor team. We'll use these to prepare tailored findings and recommendations for your environment. Expect to hear from us shortly.</p>
+                <button class="btn btn-pri" onclick="downloadResponses()" style="margin-right:0.5rem;">Download a Copy</button>
+            </div>
+            <div class="complete" id="complete-error" style="display:none;">
+                <div class="complete-icon" style="background:#dc2626;">!</div>
+                <h2>Submission Issue</h2>
+                <p style="color:var(--text-dim); margin-bottom:1rem; max-width:480px; margin-left:auto; margin-right:auto;">We couldn't send your responses automatically. Don't worry, your answers are saved locally. Please download the file and email it to us.</p>
+                <div style="display:flex; gap:0.75rem; justify-content:center; flex-wrap:wrap;">
+                    <button class="btn btn-pri" onclick="downloadResponses()">Download Responses</button>
+                    <button class="btn btn-sec" onclick="submitForm()">Try Again</button>
+                </div>
+                <p style="color:var(--text-muted); font-size:0.8rem; margin-top:1rem;">Send to: <a href="mailto:karim.wadhwani@armor.com" style="color:var(--accent);">karim.wadhwani@armor.com</a></p>
             </div>
         </section>
 
@@ -1411,19 +1426,115 @@
             document.getElementById('progressText').textContent = pct+'% complete';
         }
 
-        function submitForm() {
+        // ─── FORMSPREE CONFIG ───
+        // 1. Go to https://formspree.io and create a free account
+        // 2. Create a new form, copy the form ID (e.g. 'xyzabcde')
+        // 3. Replace 'YOUR_FORMSPREE_ID' below with your actual form ID
+        const FORMSPREE_ID = 'YOUR_FORMSPREE_ID';
+        const FORMSPREE_URL = `https://formspree.io/f/${FORMSPREE_ID}`;
+
+        function formatResponsesForEmail() {
+            const labels = {};
+            document.querySelectorAll('.card').forEach(card => {
+                const label = card.querySelector('.q-text')?.textContent?.trim();
+                const input = card.querySelector('[name]');
+                if(label && input) labels[input.name] = label;
+            });
+
+            let text = 'SOPRANO DESIGN - MDR DISCOVERY RESPONSES\n';
+            text += '==========================================\n';
+            text += 'Submitted: ' + new Date().toLocaleString() + '\n\n';
+
+            Object.entries(responses).forEach(([k,v]) => {
+                if(k.endsWith('-other') && !v) return;
+                const question = labels[k] || k;
+                const answer = Array.isArray(v) ? v.join(', ') : v;
+                if(answer) {
+                    text += question + '\n';
+                    text += '  → ' + answer + '\n';
+                    if(responses[k+'-other']) text += '  → (Other detail): ' + responses[k+'-other'] + '\n';
+                    text += '\n';
+                }
+            });
+            return text;
+        }
+
+        async function submitForm() {
             goTo('complete');
             document.getElementById('progressFill').style.width = '100%';
             document.getElementById('progressText').textContent = 'Complete!';
+
+            // Show sending state
+            document.getElementById('complete-sending').style.display = '';
+            document.getElementById('complete-success').style.display = 'none';
+            document.getElementById('complete-error').style.display = 'none';
+
+            // Check if Formspree is configured
+            if(FORMSPREE_ID === 'YOUR_FORMSPREE_ID') {
+                // Not configured - skip to success with download prompt
+                document.getElementById('complete-sending').style.display = 'none';
+                document.getElementById('complete-success').style.display = '';
+                document.querySelector('#complete-success p').textContent = 'Your responses have been saved locally. Please download the file and send it to the Armor team.';
+                return;
+            }
+
+            try {
+                const formatted = formatResponsesForEmail();
+                const res = await fetch(FORMSPREE_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                    body: JSON.stringify({
+                        _subject: 'Soprano Design - MDR Discovery Workshop Responses',
+                        responses: formatted,
+                        raw_data: JSON.stringify(responses, null, 2),
+                        submitted_at: new Date().toISOString()
+                    })
+                });
+
+                if(res.ok) {
+                    document.getElementById('complete-sending').style.display = 'none';
+                    document.getElementById('complete-success').style.display = '';
+                } else {
+                    throw new Error('Submission failed: ' + res.status);
+                }
+            } catch(err) {
+                console.error('Submit error:', err);
+                document.getElementById('complete-sending').style.display = 'none';
+                document.getElementById('complete-error').style.display = '';
+            }
         }
 
         function downloadResponses() {
-            let md = '# Soprano Design MDR Discovery Responses\n\nGenerated: '+new Date().toLocaleString()+'\n\n';
-            Object.entries(responses).forEach(([k,v]) => { md += `**${k}:** ${Array.isArray(v)?v.join(', '):v}\n\n`; });
+            let md = '# Soprano Design - MDR Discovery Responses\n\n';
+            md += '**Submitted:** ' + new Date().toLocaleString() + '\n\n---\n\n';
+
+            const labels = {};
+            document.querySelectorAll('.card').forEach(card => {
+                const label = card.querySelector('.q-text')?.textContent?.trim();
+                const input = card.querySelector('[name]');
+                if(label && input) labels[input.name] = label;
+            });
+
+            const sectionNames = {business:'Business Overview',infrastructure:'Infrastructure',identity:'Identity & Access',platform:'Platform',endpoints:'Endpoints',risk:'Risk & Priorities',operations:'Operations'};
+            sections.forEach(sec => {
+                md += `## ${sectionNames[sec] || sec}\n\n`;
+                document.querySelectorAll(`#s-${sec} .card [name]`).forEach(input => {
+                    const name = input.name;
+                    if(name.endsWith('-other')) return;
+                    const v = responses[name];
+                    if(!v || (Array.isArray(v) && !v.length)) return;
+                    const question = labels[name] || name;
+                    const answer = Array.isArray(v) ? v.join(', ') : v;
+                    md += `**${question}**\n${answer}`;
+                    if(responses[name+'-other']) md += ` *(Other: ${responses[name+'-other']})*`;
+                    md += '\n\n';
+                });
+            });
+
             const blob = new Blob([md], {type:'text/markdown'});
             const a = document.createElement('a');
             a.href = URL.createObjectURL(blob);
-            a.download = 'soprano-discovery.md';
+            a.download = 'soprano-discovery-responses.md';
             a.click();
         }
     </script>
