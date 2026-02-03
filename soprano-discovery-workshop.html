@@ -757,7 +757,7 @@
             <div class="subsec">
                 <div class="subsec-title">Whispir Integration</div>
 
-                <div class="card" data-q="acq-1">
+                <div class="card" data-q="biz-1">
                     <label class="q-label"><span class="q-num">1</span><span class="q-text">What's the current state of Whispir infrastructure?</span></label>
                     <div class="opts">
                         <label class="opt"><input type="radio" name="whispir-status" value="migrated"><span class="opt-mark"></span><span class="opt-text">Fully migrated into Soprano infrastructure</span></label>
@@ -769,7 +769,7 @@
                     </div>
                 </div>
 
-                <div class="card" data-q="acq-2">
+                <div class="card" data-q="biz-2">
                     <label class="q-label"><span class="q-num">2</span><span class="q-text">Are Whispir's APIs and customer portal still live and accepting traffic?</span></label>
                     <div class="opts">
                         <label class="opt"><input type="radio" name="whispir-apis" value="live"><span class="opt-mark"></span><span class="opt-text">Yes, still accepting traffic</span></label>
@@ -785,7 +785,7 @@
             <div class="subsec">
                 <div class="subsec-title">Ubisend / Conversational AI Platform</div>
 
-                <div class="card" data-q="acq-3">
+                <div class="card" data-q="biz-3">
                     <label class="q-label"><span class="q-num">3</span><span class="q-text">Where does the Ubisend platform run today?</span></label>
                     <div class="opts">
                         <label class="opt"><input type="radio" name="ubisend-hosting" value="uk"><span class="opt-mark"></span><span class="opt-text">Still in original UK infrastructure</span></label>
@@ -797,7 +797,7 @@
                     </div>
                 </div>
 
-                <div class="card" data-q="acq-4">
+                <div class="card" data-q="biz-4">
                     <label class="q-label"><span class="q-num">4</span><span class="q-text">Does the UK team still manage Ubisend independently?</span></label>
                     <div class="opts">
                         <label class="opt"><input type="radio" name="ubisend-mgmt" value="uk"><span class="opt-mark"></span><span class="opt-text">UK team manages independently</span></label>
@@ -812,7 +812,7 @@
             <div class="subsec">
                 <div class="subsec-title">APAC Regional Operations</div>
 
-                <div class="card" data-q="acq-5">
+                <div class="card" data-q="biz-5">
                     <label class="q-label"><span class="q-num">5</span><span class="q-text">Are Singapore and Malaysia still operating as separate regional messaging hubs?</span></label>
                     <div class="opts">
                         <label class="opt"><input type="radio" name="apac-status" value="separate"><span class="opt-mark"></span><span class="opt-text">Yes, still independent hubs with their own carrier connections</span></label>
@@ -824,7 +824,7 @@
                     </div>
                 </div>
 
-                <div class="card" data-q="acq-6">
+                <div class="card" data-q="biz-6">
                     <label class="q-label"><span class="q-num">6</span><span class="q-text">Do Singapore/Malaysia have their own IT staff making configuration changes?</span></label>
                     <div class="opts">
                         <label class="opt"><input type="radio" name="apac-staff" value="local"><span class="opt-mark"></span><span class="opt-text">Yes, local staff manage routing and carrier connections</span></label>
@@ -839,7 +839,7 @@
             <div class="subsec">
                 <div class="subsec-title">Legacy & Unmanaged Systems</div>
 
-                <div class="card" data-q="acq-7">
+                <div class="card" data-q="biz-7">
                     <label class="q-label"><span class="q-num">7</span><span class="q-text">Are there systems officially "end of life" but still running because customers haven't migrated?<span class="q-hint">These are often overlooked but still need monitoring</span></span></label>
                     <div class="opts">
                         <label class="opt"><input type="radio" name="legacy-eol" value="yes"><span class="opt-mark"></span><span class="opt-text">Yes, there are some</span></label>
@@ -850,8 +850,8 @@
                     </div>
                 </div>
 
-                <div class="card" data-q="acq-8">
-                    <label class="q-label"><span class="q-num">8</span><span class="q-text">Did acquired teams bring tools, servers, or SaaS subscriptions not on your official asset register?<span class="q-hint">Shadow IT from past integrations is a common blind spot</span></span></label>
+                <div class="card" data-q="biz-8">
+                    <label class="q-label"><span class="q-num">8</span><span class="q-text">Are there tools, servers, or SaaS subscriptions from other teams that aren't on your official asset register?<span class="q-hint">Shadow IT from past integrations is a common blind spot</span></span></label>
                     <textarea name="shadow-it" placeholder="List anything you're aware of, or 'None that we know of'..."></textarea>
                 </div>
             </div>
@@ -859,7 +859,6 @@
             <div class="nav-btns">
                 <div></div>
                 <button class="btn btn-pri" onclick="goTo('infrastructure')">Continue to Infrastructure &rarr;</button>
-
             </div>
         </section>
 
@@ -871,13 +870,13 @@
             </div>
 
             <div class="card" data-q="infra-1">
-                <label class="q-label"><span class="q-num">1</span><span class="q-text">How many Azure subscriptions exist today? Are they all under one tenant?<span class="q-hint">Include any created for acquired entities or new projects</span></span></label>
+                <label class="q-label"><span class="q-num">1</span><span class="q-text">How many Azure subscriptions exist today? Are they all under one tenant?<span class="q-hint">Include any created for subsidiary entities or new projects</span></span></label>
                 <textarea name="azure-subs" placeholder="e.g., '5 subscriptions, all under main tenant' or 'Main tenant has 3, Whispir has 2 separate'..."></textarea>
             </div>
 
             <div class="card" data-q="infra-2">
                 <label class="q-label"><span class="q-num">2</span><span class="q-text">How many AWS accounts are in use? Are they in a single AWS Organization?</span></label>
-                <textarea name="aws-accounts" placeholder="e.g., '8 accounts in one Organization' or 'Main org has 5, acquired companies have 3 outside'..."></textarea>
+                <textarea name="aws-accounts" placeholder="e.g., '8 accounts in one Organization' or 'Main org has 5, subsidiary companies have 3 outside'..."></textarea>
             </div>
 
             <div class="card" data-q="infra-3">
@@ -897,7 +896,7 @@
                 <div class="opts">
                     <label class="opt"><input type="checkbox" name="on-prem" value="sydney"><span class="opt-mark check"></span><span class="opt-text">Sydney head office servers</span></label>
                     <label class="opt"><input type="checkbox" name="on-prem" value="uk"><span class="opt-mark check"></span><span class="opt-text">UK operations infrastructure</span></label>
-                    <label class="opt"><input type="checkbox" name="on-prem" value="acquired"><span class="opt-mark check"></span><span class="opt-text">Acquired company data centres</span></label>
+                    <label class="opt"><input type="checkbox" name="on-prem" value="acquired"><span class="opt-mark check"></span><span class="opt-text">Subsidiary data centres</span></label>
                     <label class="opt"><input type="checkbox" name="on-prem" value="colo"><span class="opt-mark check"></span><span class="opt-text">Co-location facilities</span></label>
                     <label class="opt"><input type="checkbox" name="on-prem" value="none"><span class="opt-mark check"></span><span class="opt-text">None - fully cloud</span></label>
                     <label class="opt"><input type="checkbox" name="on-prem" value="other"><span class="opt-mark check"></span><span class="opt-text">Other</span></label>
@@ -939,7 +938,7 @@
                 <div class="opts">
                     <label class="opt"><input type="radio" name="central-idp" value="yes-entra"><span class="opt-mark"></span><span class="opt-text">Yes, everyone uses Entra ID (Azure AD)</span></label>
                     <label class="opt"><input type="radio" name="central-idp" value="yes-other"><span class="opt-mark"></span><span class="opt-text">Yes, but different IdP (Okta, etc.)</span></label>
-                    <label class="opt"><input type="radio" name="central-idp" value="mostly"><span class="opt-mark"></span><span class="opt-text">Mostly, but some acquired teams have separate directories</span></label>
+                    <label class="opt"><input type="radio" name="central-idp" value="mostly"><span class="opt-mark"></span><span class="opt-text">Mostly, but some teams have separate directories</span></label>
                     <label class="opt"><input type="radio" name="central-idp" value="fragmented"><span class="opt-mark"></span><span class="opt-text">Fragmented - different regions use different systems</span></label>
                     <label class="opt"><input type="radio" name="central-idp" value="other"><span class="opt-mark"></span><span class="opt-text">Other</span></label>
                     <input type="text" class="other-input" name="central-idp-other" placeholder="Please specify...">
@@ -971,7 +970,7 @@
             </div>
 
             <div class="card" data-q="id-4">
-                <label class="q-label"><span class="q-num">4</span><span class="q-text">When someone leaves, how confident are you access is revoked across all systems?<span class="q-hint">Including acquired platforms, regional systems, service accounts</span></span></label>
+                <label class="q-label"><span class="q-num">4</span><span class="q-text">When someone leaves, how confident are you access is revoked across all systems?<span class="q-hint">Including all platforms, regional systems, service accounts</span></span></label>
                 <div class="opts">
                     <label class="opt"><input type="radio" name="offboarding" value="very"><span class="opt-mark"></span><span class="opt-text">Very confident - automated process covers everything</span></label>
                     <label class="opt"><input type="radio" name="offboarding" value="mostly"><span class="opt-mark"></span><span class="opt-text">Mostly confident - main systems covered, might miss edge cases</span></label>
@@ -997,7 +996,7 @@
         <section class="section" id="s-platform">
             <div class="section-header">
                 <h2 class="section-title">Soprano Connect Platform</h2>
-                <p class="section-desc">Understanding your core CPaaS platform to identify monitoring gaps.</p>
+                <p class="section-desc">Understanding your core messaging platform to identify monitoring gaps.</p>
             </div>
 
             <div class="card" data-q="plat-1">
@@ -1075,7 +1074,7 @@
                     <label class="opt"><input type="checkbox" name="cs-deploy" value="win-servers"><span class="opt-mark check"></span><span class="opt-text">Windows servers</span></label>
                     <label class="opt"><input type="checkbox" name="cs-deploy" value="linux"><span class="opt-mark check"></span><span class="opt-text">Linux servers</span></label>
                     <label class="opt"><input type="checkbox" name="cs-deploy" value="mac"><span class="opt-mark check"></span><span class="opt-text">Mac devices</span></label>
-                    <label class="opt"><input type="checkbox" name="cs-deploy" value="all-regions"><span class="opt-mark check"></span><span class="opt-text">All regions including acquired entities</span></label>
+                    <label class="opt"><input type="checkbox" name="cs-deploy" value="all-regions"><span class="opt-mark check"></span><span class="opt-text">All regions including subsidiary entities</span></label>
                     <label class="opt"><input type="checkbox" name="cs-deploy" value="other"><span class="opt-mark check"></span><span class="opt-text">Other</span></label>
                     <input type="text" class="other-input" name="cs-deploy-other" placeholder="Please specify...">
                 </div>
@@ -1141,7 +1140,7 @@
                     <tr><th>Scenario</th><th style="width: 160px;">Detection Level</th></tr>
                     <tr><td>Compromised customer API key sending phishing at scale</td><td><select name="detect-api"><option value="">Select...</option><option value="high">High</option><option value="medium">Medium</option><option value="low">Low</option><option value="none">None</option></select></td></tr>
                     <tr><td>Insider accessing customer message data</td><td><select name="detect-insider"><option value="">Select...</option><option value="high">High</option><option value="medium">Medium</option><option value="low">Low</option><option value="none">None</option></select></td></tr>
-                    <tr><td>Attacker pivoting from acquired infrastructure to core platform</td><td><select name="detect-pivot"><option value="">Select...</option><option value="high">High</option><option value="medium">Medium</option><option value="low">Low</option><option value="none">None</option></select></td></tr>
+                    <tr><td>Attacker pivoting from subsidiary infrastructure to core platform</td><td><select name="detect-pivot"><option value="">Select...</option><option value="high">High</option><option value="medium">Medium</option><option value="low">Low</option><option value="none">None</option></select></td></tr>
                     <tr><td>SMS pumping / AIT fraud through your platform</td><td><select name="detect-ait"><option value="">Select...</option><option value="high">High</option><option value="medium">Medium</option><option value="low">Low</option><option value="none">None</option></select></td></tr>
                     <tr><td>Ransomware spreading from endpoints to production</td><td><select name="detect-ransom"><option value="">Select...</option><option value="high">High</option><option value="medium">Medium</option><option value="low">Low</option><option value="none">None</option></select></td></tr>
                 </table>
@@ -1216,7 +1215,7 @@
             <div class="card" data-q="ops-4">
                 <label class="q-label"><span class="q-num">4</span><span class="q-text">What's changing in the next 6-12 months that will affect the environment?</span></label>
                 <div class="opts">
-                    <label class="opt"><input type="checkbox" name="changes" value="decommission"><span class="opt-mark check"></span><span class="opt-text">Decommissioning acquired platforms</span></label>
+                    <label class="opt"><input type="checkbox" name="changes" value="decommission"><span class="opt-mark check"></span><span class="opt-text">Decommissioning legacy platforms</span></label>
                     <label class="opt"><input type="checkbox" name="changes" value="new-regions"><span class="opt-mark check"></span><span class="opt-text">New regional deployments</span></label>
                     <label class="opt"><input type="checkbox" name="changes" value="migration"><span class="opt-mark check"></span><span class="opt-text">Cloud migrations or consolidation</span></label>
                     <label class="opt"><input type="checkbox" name="changes" value="products"><span class="opt-mark check"></span><span class="opt-text">New products or features</span></label>
