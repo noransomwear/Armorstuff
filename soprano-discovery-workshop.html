@@ -738,13 +738,13 @@
         </div>
 
         <nav class="tabs" id="tabs">
-            <button class="tab active" data-section="business">Business Overview <span class="count" id="c-business">0/8</span></button>
-            <button class="tab" data-section="infrastructure">Infrastructure <span class="count" id="c-infrastructure">0/6</span></button>
+            <button class="tab active" data-section="business">Business Overview <span class="count" id="c-business">0/12</span></button>
+            <button class="tab" data-section="infrastructure">Infrastructure <span class="count" id="c-infrastructure">0/9</span></button>
             <button class="tab" data-section="identity">Identity & Access <span class="count" id="c-identity">0/5</span></button>
             <button class="tab" data-section="platform">Platform <span class="count" id="c-platform">0/5</span></button>
             <button class="tab" data-section="endpoints">Endpoints <span class="count" id="c-endpoints">0/4</span></button>
             <button class="tab" data-section="risk">Risk <span class="count" id="c-risk">0/5</span></button>
-            <button class="tab" data-section="operations">Operations <span class="count" id="c-operations">0/5</span></button>
+            <button class="tab" data-section="operations">Operations <span class="count" id="c-operations">0/7</span></button>
         </nav>
 
         <!-- BUSINESS OVERVIEW -->
@@ -755,10 +755,48 @@
             </div>
 
             <div class="subsec">
+                <div class="subsec-title">About Your Organisation</div>
+
+                <div class="card" data-q="biz-0a">
+                    <label class="q-label"><span class="q-num">1</span><span class="q-text">What are Soprano Design's core services and who are the primary customers?<span class="q-hint">Help us understand the business so we can prioritise what matters most</span></span></label>
+                    <textarea name="core-services" placeholder="e.g., 'Enterprise messaging APIs, SMS gateway services for banks and government agencies'..."></textarea>
+                </div>
+
+                <div class="card" data-q="biz-0b">
+                    <label class="q-label"><span class="q-num">2</span><span class="q-text">How is the IT / engineering team structured?</span></label>
+                    <textarea name="team-structure" rows="4" placeholder="e.g., 'Central IT team of 8 in Sydney, 3 devs in UK for Ubisend, 2 ops in Singapore'..."></textarea>
+                </div>
+
+                <div class="card" data-q="biz-0c">
+                    <label class="q-label"><span class="q-num">3</span><span class="q-text">Is there a dedicated security person or team, or does security fall under IT?</span></label>
+                    <div class="opts">
+                        <label class="opt"><input type="radio" name="security-team" value="dedicated"><span class="opt-mark"></span><span class="opt-text">Dedicated security team or person</span></label>
+                        <label class="opt"><input type="radio" name="security-team" value="it-shared"><span class="opt-mark"></span><span class="opt-text">Security is part of the IT team's responsibilities</span></label>
+                        <label class="opt"><input type="radio" name="security-team" value="outsourced"><span class="opt-mark"></span><span class="opt-text">Outsourced to a third party</span></label>
+                        <label class="opt"><input type="radio" name="security-team" value="none"><span class="opt-mark"></span><span class="opt-text">No formal security function currently</span></label>
+                        <label class="opt"><input type="radio" name="security-team" value="other"><span class="opt-mark"></span><span class="opt-text">Other</span></label>
+                        <input type="text" class="other-input" name="security-team-other" placeholder="Please specify...">
+                    </div>
+                </div>
+
+                <div class="card" data-q="biz-0d">
+                    <label class="q-label"><span class="q-num">4</span><span class="q-text">Where are staff located?<span class="q-hint">Select all regions with employees or contractors</span></span></label>
+                    <div class="opts">
+                        <label class="opt"><input type="checkbox" name="staff-locations" value="au"><span class="opt-mark check"></span><span class="opt-text">Australia</span></label>
+                        <label class="opt"><input type="checkbox" name="staff-locations" value="uk"><span class="opt-mark check"></span><span class="opt-text">United Kingdom</span></label>
+                        <label class="opt"><input type="checkbox" name="staff-locations" value="sg"><span class="opt-mark check"></span><span class="opt-text">Singapore</span></label>
+                        <label class="opt"><input type="checkbox" name="staff-locations" value="my"><span class="opt-mark check"></span><span class="opt-text">Malaysia</span></label>
+                        <label class="opt"><input type="checkbox" name="staff-locations" value="other"><span class="opt-mark check"></span><span class="opt-text">Other</span></label>
+                        <input type="text" class="other-input" name="staff-locations-other" placeholder="Please specify...">
+                    </div>
+                </div>
+            </div>
+
+            <div class="subsec">
                 <div class="subsec-title">Whispir Integration</div>
 
                 <div class="card" data-q="biz-1">
-                    <label class="q-label"><span class="q-num">1</span><span class="q-text">What's the current state of Whispir infrastructure?</span></label>
+                    <label class="q-label"><span class="q-num">5</span><span class="q-text">What's the current state of Whispir infrastructure?</span></label>
                     <div class="opts">
                         <label class="opt"><input type="radio" name="whispir-status" value="migrated"><span class="opt-mark"></span><span class="opt-text">Fully migrated into Soprano infrastructure</span></label>
                         <label class="opt"><input type="radio" name="whispir-status" value="separate"><span class="opt-mark"></span><span class="opt-text">Still running as separate AWS accounts</span></label>
@@ -770,7 +808,7 @@
                 </div>
 
                 <div class="card" data-q="biz-2">
-                    <label class="q-label"><span class="q-num">2</span><span class="q-text">Are Whispir's APIs and customer portal still live and accepting traffic?</span></label>
+                    <label class="q-label"><span class="q-num">6</span><span class="q-text">Are Whispir's APIs and customer portal still live and accepting traffic?</span></label>
                     <div class="opts">
                         <label class="opt"><input type="radio" name="whispir-apis" value="live"><span class="opt-mark"></span><span class="opt-text">Yes, still accepting traffic</span></label>
                         <label class="opt"><input type="radio" name="whispir-apis" value="redirected"><span class="opt-mark"></span><span class="opt-text">Redirecting to Soprano Connect</span></label>
@@ -786,7 +824,7 @@
                 <div class="subsec-title">Ubisend / Conversational AI Platform</div>
 
                 <div class="card" data-q="biz-3">
-                    <label class="q-label"><span class="q-num">3</span><span class="q-text">Where does the Ubisend platform run today?</span></label>
+                    <label class="q-label"><span class="q-num">7</span><span class="q-text">Where does the Ubisend platform run today?</span></label>
                     <div class="opts">
                         <label class="opt"><input type="radio" name="ubisend-hosting" value="uk"><span class="opt-mark"></span><span class="opt-text">Still in original UK infrastructure</span></label>
                         <label class="opt"><input type="radio" name="ubisend-hosting" value="consolidated"><span class="opt-mark"></span><span class="opt-text">Consolidated into main Soprano infrastructure</span></label>
@@ -798,7 +836,7 @@
                 </div>
 
                 <div class="card" data-q="biz-4">
-                    <label class="q-label"><span class="q-num">4</span><span class="q-text">Does the UK team still manage Ubisend independently?</span></label>
+                    <label class="q-label"><span class="q-num">8</span><span class="q-text">Does the UK team still manage Ubisend independently?</span></label>
                     <div class="opts">
                         <label class="opt"><input type="radio" name="ubisend-mgmt" value="uk"><span class="opt-mark"></span><span class="opt-text">UK team manages independently</span></label>
                         <label class="opt"><input type="radio" name="ubisend-mgmt" value="central"><span class="opt-mark"></span><span class="opt-text">Now under central IT</span></label>
@@ -813,7 +851,7 @@
                 <div class="subsec-title">APAC Regional Operations</div>
 
                 <div class="card" data-q="biz-5">
-                    <label class="q-label"><span class="q-num">5</span><span class="q-text">Are Singapore and Malaysia still operating as separate regional messaging hubs?</span></label>
+                    <label class="q-label"><span class="q-num">9</span><span class="q-text">Are Singapore and Malaysia still operating as separate regional messaging hubs?</span></label>
                     <div class="opts">
                         <label class="opt"><input type="radio" name="apac-status" value="separate"><span class="opt-mark"></span><span class="opt-text">Yes, still independent hubs with their own carrier connections</span></label>
                         <label class="opt"><input type="radio" name="apac-status" value="consolidated"><span class="opt-mark"></span><span class="opt-text">Fully consolidated into Soprano Connect</span></label>
@@ -825,7 +863,7 @@
                 </div>
 
                 <div class="card" data-q="biz-6">
-                    <label class="q-label"><span class="q-num">6</span><span class="q-text">Do Singapore/Malaysia have their own IT staff making configuration changes?</span></label>
+                    <label class="q-label"><span class="q-num">10</span><span class="q-text">Do Singapore/Malaysia have their own IT staff making configuration changes?</span></label>
                     <div class="opts">
                         <label class="opt"><input type="radio" name="apac-staff" value="local"><span class="opt-mark"></span><span class="opt-text">Yes, local staff manage routing and carrier connections</span></label>
                         <label class="opt"><input type="radio" name="apac-staff" value="central"><span class="opt-mark"></span><span class="opt-text">No, all managed centrally</span></label>
@@ -840,7 +878,7 @@
                 <div class="subsec-title">Legacy & Unmanaged Systems</div>
 
                 <div class="card" data-q="biz-7">
-                    <label class="q-label"><span class="q-num">7</span><span class="q-text">Are there systems officially "end of life" but still running because customers haven't migrated?<span class="q-hint">These are often overlooked but still need monitoring</span></span></label>
+                    <label class="q-label"><span class="q-num">11</span><span class="q-text">Are there systems officially "end of life" but still running because customers haven't migrated?<span class="q-hint">These are often overlooked but still need monitoring</span></span></label>
                     <div class="opts">
                         <label class="opt"><input type="radio" name="legacy-eol" value="yes"><span class="opt-mark"></span><span class="opt-text">Yes, there are some</span></label>
                         <label class="opt"><input type="radio" name="legacy-eol" value="no"><span class="opt-mark"></span><span class="opt-text">No, everything old has been decommissioned</span></label>
@@ -851,7 +889,7 @@
                 </div>
 
                 <div class="card" data-q="biz-8">
-                    <label class="q-label"><span class="q-num">8</span><span class="q-text">Are there tools, servers, or SaaS subscriptions from other teams that aren't on your official asset register?<span class="q-hint">Shadow IT from past integrations is a common blind spot</span></span></label>
+                    <label class="q-label"><span class="q-num">12</span><span class="q-text">Are there tools, servers, or SaaS subscriptions from other teams that aren't on your official asset register?<span class="q-hint">Shadow IT from past integrations is a common blind spot</span></span></label>
                     <textarea name="shadow-it" placeholder="List anything you're aware of, or 'None that we know of'..."></textarea>
                 </div>
             </div>
@@ -918,6 +956,34 @@
             <div class="card" data-q="infra-6">
                 <label class="q-label"><span class="q-num">6</span><span class="q-text">Any dedicated connections to partners/carriers that bypass standard perimeter?<span class="q-hint">e.g., Private links to Telstra, AWS Direct Connect, Azure ExpressRoute</span></span></label>
                 <textarea name="dedicated-links" placeholder="List any dedicated connections, or 'None'..."></textarea>
+            </div>
+
+            <div class="card" data-q="infra-7">
+                <label class="q-label"><span class="q-num">7</span><span class="q-text">What collaboration and email platform is in use?</span></label>
+                <div class="opts">
+                    <label class="opt"><input type="radio" name="collab-platform" value="m365"><span class="opt-mark"></span><span class="opt-text">Microsoft 365 (Exchange, Teams, SharePoint)</span></label>
+                    <label class="opt"><input type="radio" name="collab-platform" value="google"><span class="opt-mark"></span><span class="opt-text">Google Workspace</span></label>
+                    <label class="opt"><input type="radio" name="collab-platform" value="mixed"><span class="opt-mark"></span><span class="opt-text">Mix - different platforms across teams or regions</span></label>
+                    <label class="opt"><input type="radio" name="collab-platform" value="other"><span class="opt-mark"></span><span class="opt-text">Other</span></label>
+                    <input type="text" class="other-input" name="collab-platform-other" placeholder="Please specify...">
+                </div>
+            </div>
+
+            <div class="card" data-q="infra-8">
+                <label class="q-label"><span class="q-num">8</span><span class="q-text">Is there network segmentation between production, corporate, and development environments?</span></label>
+                <div class="opts">
+                    <label class="opt"><input type="radio" name="network-seg" value="full"><span class="opt-mark"></span><span class="opt-text">Yes, fully segmented with firewall rules between zones</span></label>
+                    <label class="opt"><input type="radio" name="network-seg" value="partial"><span class="opt-mark"></span><span class="opt-text">Partially - some separation but not consistently enforced</span></label>
+                    <label class="opt"><input type="radio" name="network-seg" value="flat"><span class="opt-mark"></span><span class="opt-text">Mostly flat - limited segmentation</span></label>
+                    <label class="opt"><input type="radio" name="network-seg" value="unknown"><span class="opt-mark"></span><span class="opt-text">Not sure</span></label>
+                    <label class="opt"><input type="radio" name="network-seg" value="other"><span class="opt-mark"></span><span class="opt-text">Other</span></label>
+                    <input type="text" class="other-input" name="network-seg-other" placeholder="Please specify...">
+                </div>
+            </div>
+
+            <div class="card" data-q="infra-9">
+                <label class="q-label"><span class="q-num">9</span><span class="q-text">What does your backup and disaster recovery posture look like?<span class="q-hint">Particularly for the messaging platform and customer data</span></span></label>
+                <textarea name="backup-dr" rows="4" placeholder="e.g., 'Daily snapshots to secondary region, 4-hour RPO, tested quarterly' or 'Backups exist but DR hasn't been tested'..."></textarea>
             </div>
 
             <div class="nav-btns">
@@ -1226,7 +1292,24 @@
             </div>
 
             <div class="card" data-q="ops-5">
-                <label class="q-label"><span class="q-num">5</span><span class="q-text">Is there anything else we should know that hasn't been covered?</span></label>
+                <label class="q-label"><span class="q-num">5</span><span class="q-text">What's already feeding into Microsoft Sentinel today?<span class="q-hint">Understanding what's connected helps us identify gaps</span></span></label>
+                <textarea name="sentinel-sources" rows="4" placeholder="e.g., 'Azure AD sign-in logs, Azure activity logs, M365 audit logs' or 'Not sure what's connected'..."></textarea>
+            </div>
+
+            <div class="card" data-q="ops-6">
+                <label class="q-label"><span class="q-num">6</span><span class="q-text">Has the organisation experienced any security incidents in the past 12 months?<span class="q-hint">This helps us understand what threats are most relevant to your environment</span></span></label>
+                <div class="opts">
+                    <label class="opt"><input type="radio" name="past-incidents" value="yes-major"><span class="opt-mark"></span><span class="opt-text">Yes, a significant incident (breach, ransomware, data loss)</span></label>
+                    <label class="opt"><input type="radio" name="past-incidents" value="yes-minor"><span class="opt-mark"></span><span class="opt-text">Yes, but minor (phishing attempts, blocked attacks)</span></label>
+                    <label class="opt"><input type="radio" name="past-incidents" value="no"><span class="opt-mark"></span><span class="opt-text">No incidents that we're aware of</span></label>
+                    <label class="opt"><input type="radio" name="past-incidents" value="prefer-not"><span class="opt-mark"></span><span class="opt-text">Prefer to discuss in person</span></label>
+                    <label class="opt"><input type="radio" name="past-incidents" value="other"><span class="opt-mark"></span><span class="opt-text">Other</span></label>
+                    <input type="text" class="other-input" name="past-incidents-other" placeholder="Please specify...">
+                </div>
+            </div>
+
+            <div class="card" data-q="ops-7">
+                <label class="q-label"><span class="q-num">7</span><span class="q-text">Is there anything else we should know that hasn't been covered?</span></label>
                 <textarea name="anything-else" rows="4" placeholder="Any other systems, concerns, or context..."></textarea>
             </div>
 
@@ -1255,7 +1338,7 @@
 
     <script>
         const sections = ['business','infrastructure','identity','platform','endpoints','risk','operations'];
-        const counts = {business:8,infrastructure:6,identity:5,platform:5,endpoints:4,risk:5,operations:5};
+        const counts = {business:12,infrastructure:9,identity:5,platform:5,endpoints:4,risk:5,operations:7};
         let responses = JSON.parse(localStorage.getItem('soprano-discovery') || '{}');
 
         document.addEventListener('DOMContentLoaded', () => {
