@@ -4,82 +4,700 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Soprano Design | MDR Discovery Workshop</title>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:wght@600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=Lora:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        :root { --bg-primary: #0a0f1a; --bg-secondary: #111827; --bg-card: #1a2234; --bg-input: #0d1320; --accent: #6366f1; --accent-light: #818cf8; --accent-glow: rgba(99,102,241,0.15); --text: #f1f5f9; --text-dim: #94a3b8; --text-muted: #64748b; --border: #2d3a52; --success: #10b981; --radius: 12px; }
+        :root {
+            --bg-primary: #000000;
+            --bg-secondary: #0a0a0a;
+            --bg-card: #111111;
+            --bg-input: #0a0a0a;
+            --bg-elevated: #1a1a1a;
+            --accent: #d4b622;
+            --accent-light: #e8d04a;
+            --accent-glow: rgba(212, 182, 34, 0.12);
+            --accent-border: rgba(212, 182, 34, 0.3);
+            --text: #ffffff;
+            --text-dim: #b0b0b0;
+            --text-muted: #6b6b6b;
+            --border: #222222;
+            --border-light: #2a2a2a;
+            --success: #4ade80;
+            --success-glow: rgba(74, 222, 128, 0.12);
+            --radius: 12px;
+            --radius-sm: 8px;
+            --radius-lg: 16px;
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'DM Sans', sans-serif; background: var(--bg-primary); color: var(--text); line-height: 1.6; }
-        .header { position: fixed; top: 0; left: 0; right: 0; background: rgba(10,15,26,0.95); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); z-index: 100; padding: 1rem 2rem; }
-        .header-inner { max-width: 900px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
-        .logo { font-family: 'Fraunces', serif; font-weight: 700; font-size: 1.2rem; display: flex; align-items: center; gap: 0.75rem; }
-        .logo-icon { width: 32px; height: 32px; background: linear-gradient(135deg, var(--accent), var(--accent-light)); border-radius: 8px; }
-        .progress { display: flex; align-items: center; gap: 1rem; }
-        .progress-bar { width: 180px; height: 6px; background: var(--bg-card); border-radius: 3px; overflow: hidden; }
-        .progress-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent-light)); transition: width 0.4s; }
-        .progress-text { font-size: 0.85rem; color: var(--text-dim); }
-        main { max-width: 900px; margin: 0 auto; padding: 6rem 1.5rem 3rem; }
-        .welcome { text-align: center; padding: 2.5rem 2rem; background: var(--bg-card); border-radius: var(--radius); border: 1px solid var(--border); margin-bottom: 2rem; position: relative; }
-        .welcome::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--accent), var(--accent-light)); border-radius: var(--radius) var(--radius) 0 0; }
-        .welcome h1 { font-family: 'Fraunces', serif; font-size: 1.8rem; margin-bottom: 0.75rem; }
-        .welcome p { color: var(--text-dim); max-width: 550px; margin: 0 auto; }
-        .tabs { display: flex; gap: 0.5rem; margin-bottom: 2rem; overflow-x: auto; padding-bottom: 0.5rem; }
-        .tab { padding: 0.7rem 1.2rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); color: var(--text-dim); font-size: 0.9rem; font-weight: 500; cursor: pointer; white-space: nowrap; transition: all 0.2s; }
-        .tab:hover { border-color: var(--accent); color: var(--text); }
-        .tab.active { background: var(--accent-glow); border-color: var(--accent); color: var(--accent-light); }
-        .tab .count { background: var(--bg-primary); padding: 0.1rem 0.5rem; border-radius: 8px; font-size: 0.75rem; margin-left: 0.5rem; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Subtle grid pattern overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.03) 1px, transparent 0);
+            background-size: 40px 40px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* ─── HEADER ─── */
+        .header {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border-bottom: 1px solid var(--border);
+            z-index: 100;
+            padding: 0 2rem;
+        }
+
+        .header-inner {
+            max-width: 960px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 64px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+        }
+
+        .logo-shield {
+            width: 32px;
+            height: 32px;
+            position: relative;
+        }
+
+        .logo-shield svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.15;
+        }
+
+        .logo-brand {
+            font-family: 'Inter', sans-serif;
+            font-weight: 900;
+            font-size: 0.85rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--text);
+        }
+
+        .logo-sub {
+            font-size: 0.65rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .progress {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .progress-bar {
+            width: 160px;
+            height: 3px;
+            background: var(--border);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--accent);
+            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 2px;
+        }
+
+        .progress-text {
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            letter-spacing: 0.04em;
+        }
+
+        /* ─── MAIN ─── */
+        main {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 96px 1.5rem 4rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ─── WELCOME ─── */
+        .welcome {
+            text-align: center;
+            padding: 3.5rem 2.5rem;
+            margin-bottom: 2.5rem;
+            position: relative;
+            border-radius: var(--radius-lg);
+            background: radial-gradient(ellipse at 50% 0%, rgba(212,182,34,0.06) 0%, transparent 70%);
+            border: 1px solid var(--border);
+        }
+
+        .welcome::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+        }
+
+        .welcome-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.35rem 1rem;
+            border-radius: 100px;
+            border: 1px solid var(--accent-border);
+            background: var(--accent-glow);
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--accent);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 1.25rem;
+        }
+
+        .welcome-badge::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--accent);
+        }
+
+        .welcome h1 {
+            font-family: 'Lora', Georgia, serif;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            letter-spacing: -0.02em;
+            line-height: 1.3;
+        }
+
+        .welcome p {
+            color: var(--text-dim);
+            max-width: 540px;
+            margin: 0 auto;
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        /* ─── TABS ─── */
+        .tabs {
+            display: flex;
+            gap: 0.35rem;
+            margin-bottom: 2.5rem;
+            overflow-x: auto;
+            padding-bottom: 0.5rem;
+            scrollbar-width: none;
+        }
+        .tabs::-webkit-scrollbar { display: none; }
+
+        .tab {
+            padding: 0.6rem 1rem;
+            background: transparent;
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            color: var(--text-muted);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 500;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.25s ease;
+            letter-spacing: 0.01em;
+        }
+
+        .tab:hover {
+            border-color: var(--text-muted);
+            color: var(--text-dim);
+        }
+
+        .tab.active {
+            background: var(--text);
+            border-color: var(--text);
+            color: var(--bg-primary);
+        }
+
+        .tab .count {
+            display: inline-block;
+            padding: 0.1rem 0.45rem;
+            border-radius: 100px;
+            font-size: 0.65rem;
+            font-weight: 600;
+            margin-left: 0.4rem;
+            background: rgba(255,255,255,0.1);
+        }
+
+        .tab.active .count {
+            background: rgba(0,0,0,0.15);
+        }
+
+        /* ─── SECTIONS ─── */
         .section { display: none; }
-        .section.active { display: block; animation: fadeIn 0.3s; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; } }
-        .section-header { margin-bottom: 1.5rem; }
-        .section-title { font-family: 'Fraunces', serif; font-size: 1.5rem; margin-bottom: 0.25rem; }
-        .section-desc { color: var(--text-dim); font-size: 0.95rem; }
-        .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem; margin-bottom: 1rem; transition: all 0.2s; }
-        .card:hover { border-color: var(--accent); }
-        .card.answered { border-left: 3px solid var(--success); }
-        .q-num { display: inline-flex; align-items: center; justify-content: center; width: 26px; height: 26px; background: var(--bg-primary); border-radius: 50%; font-size: 0.8rem; font-weight: 600; color: var(--text-muted); margin-right: 0.75rem; flex-shrink: 0; }
-        .card.answered .q-num { background: var(--success); color: white; }
-        .q-label { font-weight: 500; margin-bottom: 1rem; display: flex; }
+        .section.active { display: block; animation: fadeIn 0.35s ease-out; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-header {
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .section-title {
+            font-family: 'Lora', Georgia, serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.35rem;
+            letter-spacing: -0.01em;
+        }
+
+        .section-desc {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+        }
+
+        /* ─── SUBSECTION ─── */
+        .subsec {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            margin-bottom: 1.75rem;
+        }
+
+        .subsec-title {
+            font-weight: 700;
+            font-size: 0.95rem;
+            margin-bottom: 0.25rem;
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .subsec-title::before {
+            content: '';
+            width: 3px;
+            height: 16px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+
+        .subsec-desc {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-bottom: 1.25rem;
+            padding-left: 1rem;
+        }
+
+        /* ─── CARDS ─── */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            margin-bottom: 0.75rem;
+            transition: all 0.25s ease;
+        }
+
+        .card:hover {
+            border-color: var(--border-light);
+        }
+
+        .card.answered {
+            border-color: rgba(74, 222, 128, 0.25);
+            background: linear-gradient(135deg, var(--bg-card), rgba(74,222,128,0.03));
+        }
+
+        .q-num {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            background: var(--bg-elevated);
+            border-radius: 6px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            margin-right: 0.75rem;
+            flex-shrink: 0;
+            letter-spacing: 0;
+        }
+
+        .card.answered .q-num {
+            background: var(--success);
+            color: #000;
+        }
+
+        .q-label {
+            font-weight: 500;
+            font-size: 0.9rem;
+            margin-bottom: 1.1rem;
+            display: flex;
+            align-items: flex-start;
+            line-height: 1.5;
+        }
+
         .q-text { flex: 1; }
-        .q-hint { display: block; font-size: 0.85rem; color: var(--text-muted); font-weight: 400; font-style: italic; margin-top: 0.4rem; }
-        textarea, input[type="text"] { width: 100%; background: var(--bg-input); border: 1px solid var(--border); border-radius: 8px; padding: 0.9rem; color: var(--text); font-family: inherit; font-size: 0.95rem; resize: vertical; min-height: 90px; }
-        textarea:focus, input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-glow); }
-        ::placeholder { color: var(--text-muted); }
-        .opts { display: flex; flex-direction: column; gap: 0.6rem; }
-        .opt { display: flex; align-items: center; gap: 0.75rem; padding: 0.9rem; background: var(--bg-input); border: 1px solid var(--border); border-radius: 8px; cursor: pointer; transition: all 0.2s; }
-        .opt:hover { border-color: var(--accent); }
-        .opt.sel { border-color: var(--accent); background: var(--accent-glow); }
+
+        .q-hint {
+            display: block;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-weight: 400;
+            font-style: normal;
+            margin-top: 0.35rem;
+            opacity: 0.8;
+        }
+
+        /* ─── INPUTS ─── */
+        textarea, input[type="text"] {
+            width: 100%;
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 0.9rem 1rem;
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.875rem;
+            resize: vertical;
+            min-height: 100px;
+            transition: all 0.2s ease;
+            line-height: 1.6;
+        }
+
+        textarea:focus, input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-glow);
+        }
+
+        ::placeholder {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        /* ─── OPTIONS ─── */
+        .opts {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .opt {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.85rem 1rem;
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .opt:hover {
+            border-color: var(--border-light);
+            background: var(--bg-secondary);
+        }
+
+        .opt.sel {
+            border-color: var(--accent);
+            background: var(--accent-glow);
+        }
+
         .opt input { display: none; }
-        .opt-mark { width: 18px; height: 18px; border: 2px solid var(--border); border-radius: 50%; flex-shrink: 0; position: relative; }
-        .opt-mark.check { border-radius: 4px; }
-        .opt.sel .opt-mark { border-color: var(--accent); background: var(--accent); }
-        .opt.sel .opt-mark::after { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 6px; height: 6px; background: white; border-radius: 50%; }
-        .opt-text { flex: 1; font-size: 0.95rem; }
-        .grid-opts { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 0.6rem; }
-        .subsec { background: var(--bg-secondary); border-radius: var(--radius); padding: 1.25rem; margin-bottom: 1.5rem; }
-        .subsec-title { font-weight: 600; font-size: 1.05rem; margin-bottom: 0.4rem; color: var(--accent-light); }
-        .subsec-desc { color: var(--text-dim); font-size: 0.9rem; margin-bottom: 1.25rem; }
-        .nav-btns { display: flex; justify-content: space-between; margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border); gap: 1rem; flex-wrap: wrap; }
-        .btn { padding: 0.8rem 1.5rem; border-radius: 8px; font-family: inherit; font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: all 0.2s; display: inline-flex; align-items: center; gap: 0.5rem; }
-        .btn-sec { background: var(--bg-card); border: 1px solid var(--border); color: var(--text-dim); }
-        .btn-sec:hover { background: var(--bg-secondary); color: var(--text); }
-        .btn-pri { background: linear-gradient(135deg, var(--accent), var(--accent-light)); border: none; color: white; }
-        .btn-pri:hover { transform: translateY(-2px); box-shadow: 0 4px 15px var(--accent-glow); }
-        .save-toast { position: fixed; bottom: 1.5rem; right: 1.5rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 0.8rem 1.2rem; display: flex; align-items: center; gap: 0.6rem; font-size: 0.9rem; opacity: 0; transform: translateY(20px); transition: all 0.3s; z-index: 50; }
+
+        .opt-mark {
+            width: 18px;
+            height: 18px;
+            border: 1.5px solid var(--border-light);
+            border-radius: 50%;
+            flex-shrink: 0;
+            position: relative;
+            transition: all 0.2s ease;
+        }
+
+        .opt-mark.check { border-radius: 5px; }
+
+        .opt.sel .opt-mark {
+            border-color: var(--accent);
+            background: var(--accent);
+        }
+
+        .opt.sel .opt-mark::after {
+            content: '';
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .opt.sel .opt-mark:not(.check)::after {
+            width: 6px;
+            height: 6px;
+            background: #000;
+            border-radius: 50%;
+        }
+
+        .opt.sel .opt-mark.check::after {
+            width: 10px;
+            height: 10px;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 12 12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2.5 6L5 8.5L9.5 4' stroke='%23000' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+            background-size: contain;
+        }
+
+        .opt-text {
+            flex: 1;
+            font-size: 0.875rem;
+            color: var(--text-dim);
+        }
+
+        .opt.sel .opt-text {
+            color: var(--text);
+        }
+
+        .grid-opts {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 0.5rem;
+        }
+
+        /* ─── MATRIX TABLE ─── */
+        .matrix {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin-top: 0.75rem;
+        }
+
+        .matrix th {
+            padding: 0.75rem 1rem;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-muted);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .matrix td {
+            padding: 0.85rem 1rem;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.875rem;
+            color: var(--text-dim);
+        }
+
+        .matrix tr:last-child td { border-bottom: none; }
+
+        .matrix select {
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 0.5rem 0.75rem;
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.825rem;
+            width: 100%;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+
+        .matrix select:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        /* ─── NAV BUTTONS ─── */
+        .nav-btns {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 3rem;
+            padding-top: 1.75rem;
+            border-top: 1px solid var(--border);
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius-sm);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            letter-spacing: 0.01em;
+        }
+
+        .btn-sec {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-dim);
+        }
+
+        .btn-sec:hover {
+            border-color: var(--text-muted);
+            color: var(--text);
+        }
+
+        .btn-pri {
+            background: var(--accent);
+            border: none;
+            color: #000;
+            font-weight: 700;
+        }
+
+        .btn-pri:hover {
+            background: var(--accent-light);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 20px var(--accent-glow);
+        }
+
+        /* ─── TOAST ─── */
+        .save-toast {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 0.65rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.8rem;
+            font-weight: 500;
+            opacity: 0;
+            transform: translateY(12px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 50;
+            color: var(--text-dim);
+        }
+
         .save-toast.show { opacity: 1; transform: translateY(0); }
-        .save-toast.saved { border-color: var(--success); color: var(--success); }
-        .complete { text-align: center; padding: 3rem; }
-        .complete-icon { width: 70px; height: 70px; background: var(--success); border-radius: 50%; margin: 0 auto 1.5rem; display: flex; align-items: center; justify-content: center; font-size: 2rem; color: white; }
-        .matrix { width: 100%; border-collapse: collapse; margin-top: 0.5rem; }
-        .matrix th, .matrix td { padding: 0.8rem; text-align: left; border-bottom: 1px solid var(--border); }
-        .matrix th { color: var(--text-muted); font-weight: 500; font-size: 0.85rem; }
-        .matrix select { background: var(--bg-input); border: 1px solid var(--border); border-radius: 6px; padding: 0.5rem; color: var(--text); font-family: inherit; width: 100%; }
-        @media (max-width: 600px) { .header { padding: 0.75rem 1rem; } main { padding: 5rem 1rem 2rem; } .welcome { padding: 1.5rem 1rem; } .welcome h1 { font-size: 1.4rem; } .nav-btns { flex-direction: column; } .btn { justify-content: center; } }
+        .save-toast.saved { border-color: rgba(74,222,128,0.3); color: var(--success); }
+
+        /* ─── COMPLETE ─── */
+        .complete {
+            text-align: center;
+            padding: 4rem 2rem;
+        }
+
+        .complete-icon {
+            width: 64px;
+            height: 64px;
+            background: var(--success);
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+            color: #000;
+            box-shadow: 0 0 40px var(--success-glow);
+        }
+
+        .complete h2 {
+            font-family: 'Lora', serif;
+            font-size: 1.75rem;
+            margin-bottom: 0.75rem;
+        }
+
+        /* ─── FOOTER ─── */
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            border-top: 1px solid var(--border);
+            margin-top: 2rem;
+        }
+
+        .footer-text {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+
+        .footer-text a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        /* ─── RESPONSIVE ─── */
+        @media (max-width: 640px) {
+            .header { padding: 0 1rem; }
+            .header-inner { height: 56px; }
+            main { padding: 80px 1rem 2rem; }
+            .welcome { padding: 2rem 1.25rem; }
+            .welcome h1 { font-size: 1.5rem; }
+            .section-title { font-size: 1.25rem; }
+            .nav-btns { flex-direction: column; }
+            .btn { justify-content: center; width: 100%; }
+            .progress-bar { width: 100px; }
+            .card { padding: 1.25rem; }
+            .subsec { padding: 1.25rem; }
+        }
+
+        /* Scrollbar styling */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg-primary); }
+        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
     </style>
 </head>
 <body>
     <header class="header">
         <div class="header-inner">
-            <div class="logo"><div class="logo-icon"></div>MDR Discovery</div>
+            <div class="logo">
+                <div class="logo-shield">
+                    <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M16 2L4 8v8c0 7.73 5.12 14.95 12 16.8 6.88-1.85 12-9.07 12-16.8V8L16 2z" fill="none" stroke="#d4b622" stroke-width="1.5"/>
+                        <path d="M16 6L8 10v6c0 5.6 3.41 10.83 8 12.17 4.59-1.34 8-6.57 8-12.17v-6L16 6z" fill="rgba(212,182,34,0.12)" stroke="none"/>
+                        <path d="M12.5 16l2.5 2.5 5-5" stroke="#d4b622" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <div class="logo-text">
+                    <span class="logo-brand">Armor</span>
+                    <span class="logo-sub">MDR Discovery</span>
+                </div>
+            </div>
             <div class="progress">
                 <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
                 <span class="progress-text" id="progressText">0% complete</span>
@@ -89,8 +707,9 @@
 
     <main>
         <div class="welcome">
-            <h1>Soprano Design Discovery Workshop</h1>
-            <p>Help us understand what's changed in your environment so we can ensure your MDR coverage matches your current infrastructure. Auto-saves as you go.</p>
+            <div class="welcome-badge">Discovery Workshop</div>
+            <h1>Soprano Design</h1>
+            <p>Help us understand what's changed in your environment so we can ensure your MDR coverage matches your current infrastructure.</p>
         </div>
 
         <nav class="tabs" id="tabs">
@@ -119,7 +738,7 @@
                     <div class="opts">
                         <label class="opt"><input type="radio" name="whispir-status" value="migrated"><span class="opt-mark"></span><span class="opt-text">Fully migrated into Soprano infrastructure</span></label>
                         <label class="opt"><input type="radio" name="whispir-status" value="separate"><span class="opt-mark"></span><span class="opt-text">Still running as separate AWS accounts</span></label>
-                        <label class="opt"><input type="radio" name="whispir-status" value="hybrid"><span class="opt-mark"></span><span class="opt-text">Hybrid - some migrated, some standalone</span></label>
+                        <label class="opt"><input type="radio" name="whispir-status" value="hybrid"><span class="opt-mark"></span><span class="opt-text">Hybrid — some migrated, some standalone</span></label>
                         <label class="opt"><input type="radio" name="whispir-status" value="unknown"><span class="opt-mark"></span><span class="opt-text">Not sure / need to check</span></label>
                     </div>
                 </div>
@@ -178,7 +797,7 @@
                     <div class="opts">
                         <label class="opt"><input type="radio" name="apac-staff" value="local"><span class="opt-mark"></span><span class="opt-text">Yes, local staff manage routing and carrier connections</span></label>
                         <label class="opt"><input type="radio" name="apac-staff" value="central"><span class="opt-mark"></span><span class="opt-text">No, all managed centrally</span></label>
-                        <label class="opt"><input type="radio" name="apac-staff" value="mixed"><span class="opt-mark"></span><span class="opt-text">Mix - some local, some central</span></label>
+                        <label class="opt"><input type="radio" name="apac-staff" value="mixed"><span class="opt-mark"></span><span class="opt-text">Mix — some local, some central</span></label>
                     </div>
                 </div>
             </div>
@@ -204,7 +823,7 @@
 
             <div class="nav-btns">
                 <div></div>
-                <button class="btn btn-pri" onclick="goTo('infrastructure')">Continue to Infrastructure →</button>
+                <button class="btn btn-pri" onclick="goTo('infrastructure')">Continue to Infrastructure &rarr;</button>
             </div>
         </section>
 
@@ -231,7 +850,7 @@
                     <label class="opt"><input type="checkbox" name="other-clouds" value="gcp"><span class="opt-mark check"></span><span class="opt-text">Google Cloud</span></label>
                     <label class="opt"><input type="checkbox" name="other-clouds" value="oracle"><span class="opt-mark check"></span><span class="opt-text">Oracle Cloud</span></label>
                     <label class="opt"><input type="checkbox" name="other-clouds" value="regional"><span class="opt-mark check"></span><span class="opt-text">Regional APAC providers</span></label>
-                    <label class="opt"><input type="checkbox" name="other-clouds" value="none"><span class="opt-mark check"></span><span class="opt-text">None - just Azure/AWS</span></label>
+                    <label class="opt"><input type="checkbox" name="other-clouds" value="none"><span class="opt-mark check"></span><span class="opt-text">None — just Azure/AWS</span></label>
                 </div>
             </div>
 
@@ -242,7 +861,7 @@
                     <label class="opt"><input type="checkbox" name="on-prem" value="uk"><span class="opt-mark check"></span><span class="opt-text">UK operations infrastructure</span></label>
                     <label class="opt"><input type="checkbox" name="on-prem" value="acquired"><span class="opt-mark check"></span><span class="opt-text">Acquired company data centres</span></label>
                     <label class="opt"><input type="checkbox" name="on-prem" value="colo"><span class="opt-mark check"></span><span class="opt-text">Co-location facilities</span></label>
-                    <label class="opt"><input type="checkbox" name="on-prem" value="none"><span class="opt-mark check"></span><span class="opt-text">None - fully cloud</span></label>
+                    <label class="opt"><input type="checkbox" name="on-prem" value="none"><span class="opt-mark check"></span><span class="opt-text">None — fully cloud</span></label>
                 </div>
             </div>
 
@@ -261,8 +880,8 @@
             </div>
 
             <div class="nav-btns">
-                <button class="btn btn-sec" onclick="goTo('acquisitions')">← Back</button>
-                <button class="btn btn-pri" onclick="goTo('identity')">Continue to Identity →</button>
+                <button class="btn btn-sec" onclick="goTo('acquisitions')">&larr; Back</button>
+                <button class="btn btn-pri" onclick="goTo('identity')">Continue to Identity &rarr;</button>
             </div>
         </section>
 
@@ -279,7 +898,7 @@
                     <label class="opt"><input type="radio" name="central-idp" value="yes-entra"><span class="opt-mark"></span><span class="opt-text">Yes, everyone uses Entra ID (Azure AD)</span></label>
                     <label class="opt"><input type="radio" name="central-idp" value="yes-other"><span class="opt-mark"></span><span class="opt-text">Yes, but different IdP (Okta, etc.)</span></label>
                     <label class="opt"><input type="radio" name="central-idp" value="mostly"><span class="opt-mark"></span><span class="opt-text">Mostly, but some acquired teams have separate directories</span></label>
-                    <label class="opt"><input type="radio" name="central-idp" value="fragmented"><span class="opt-mark"></span><span class="opt-text">Fragmented - different regions use different systems</span></label>
+                    <label class="opt"><input type="radio" name="central-idp" value="fragmented"><span class="opt-mark"></span><span class="opt-text">Fragmented — different regions use different systems</span></label>
                 </div>
             </div>
 
@@ -288,7 +907,7 @@
                 <div class="opts">
                     <label class="opt"><input type="radio" name="priv-access" value="pam"><span class="opt-mark"></span><span class="opt-text">Yes, through a PAM solution</span></label>
                     <label class="opt"><input type="radio" name="priv-access" value="documented"><span class="opt-mark"></span><span class="opt-text">Documented but not centrally managed</span></label>
-                    <label class="opt"><input type="radio" name="priv-access" value="tribal"><span class="opt-mark"></span><span class="opt-text">Tribal knowledge - key people know who has access</span></label>
+                    <label class="opt"><input type="radio" name="priv-access" value="tribal"><span class="opt-mark"></span><span class="opt-text">Tribal knowledge — key people know who has access</span></label>
                     <label class="opt"><input type="radio" name="priv-access" value="unknown"><span class="opt-mark"></span><span class="opt-text">Not consistently tracked</span></label>
                 </div>
             </div>
@@ -306,9 +925,9 @@
             <div class="card" data-q="id-4">
                 <label class="q-label"><span class="q-num">4</span><span class="q-text">When someone leaves, how confident are you access is revoked across all systems?<span class="q-hint">Including acquired platforms, regional systems, service accounts</span></span></label>
                 <div class="opts">
-                    <label class="opt"><input type="radio" name="offboarding" value="very"><span class="opt-mark"></span><span class="opt-text">Very confident - automated process covers everything</span></label>
-                    <label class="opt"><input type="radio" name="offboarding" value="mostly"><span class="opt-mark"></span><span class="opt-text">Mostly confident - main systems covered, might miss edge cases</span></label>
-                    <label class="opt"><input type="radio" name="offboarding" value="not"><span class="opt-mark"></span><span class="opt-text">Not very confident - manual process, things get missed</span></label>
+                    <label class="opt"><input type="radio" name="offboarding" value="very"><span class="opt-mark"></span><span class="opt-text">Very confident — automated process covers everything</span></label>
+                    <label class="opt"><input type="radio" name="offboarding" value="mostly"><span class="opt-mark"></span><span class="opt-text">Mostly confident — main systems covered, might miss edge cases</span></label>
+                    <label class="opt"><input type="radio" name="offboarding" value="not"><span class="opt-mark"></span><span class="opt-text">Not very confident — manual process, things get missed</span></label>
                     <label class="opt"><input type="radio" name="offboarding" value="unknown"><span class="opt-mark"></span><span class="opt-text">Honestly not sure</span></label>
                 </div>
             </div>
@@ -319,8 +938,8 @@
             </div>
 
             <div class="nav-btns">
-                <button class="btn btn-sec" onclick="goTo('infrastructure')">← Back</button>
-                <button class="btn btn-pri" onclick="goTo('platform')">Continue to Platform →</button>
+                <button class="btn btn-sec" onclick="goTo('infrastructure')">&larr; Back</button>
+                <button class="btn btn-pri" onclick="goTo('platform')">Continue to Platform &rarr;</button>
             </div>
         </section>
 
@@ -343,7 +962,7 @@
             </div>
 
             <div class="card" data-q="plat-2">
-                <label class="q-label"><span class="q-num">2</span><span class="q-text">For OTP/2FA messages - is the OTP content visible in any logs, or masked?</span></label>
+                <label class="q-label"><span class="q-num">2</span><span class="q-text">For OTP/2FA messages — is the OTP content visible in any logs, or masked?</span></label>
                 <div class="opts">
                     <label class="opt"><input type="radio" name="otp-visibility" value="masked"><span class="opt-mark"></span><span class="opt-text">Always masked in logs</span></label>
                     <label class="opt"><input type="radio" name="otp-visibility" value="some"><span class="opt-mark"></span><span class="opt-text">Visible in some places (debug logs)</span></label>
@@ -353,7 +972,7 @@
             </div>
 
             <div class="card" data-q="plat-3">
-                <label class="q-label"><span class="q-num">3</span><span class="q-text">Customer API keys and portal credentials - where are these stored?</span></label>
+                <label class="q-label"><span class="q-num">3</span><span class="q-text">Customer API keys and portal credentials — where are these stored?</span></label>
                 <div class="opts">
                     <label class="opt"><input type="radio" name="cred-storage" value="secrets"><span class="opt-mark"></span><span class="opt-text">Dedicated secrets manager (Vault, AWS Secrets Manager)</span></label>
                     <label class="opt"><input type="radio" name="cred-storage" value="encrypted-db"><span class="opt-mark"></span><span class="opt-text">Encrypted in application database</span></label>
@@ -379,8 +998,8 @@
             </div>
 
             <div class="nav-btns">
-                <button class="btn btn-sec" onclick="goTo('identity')">← Back</button>
-                <button class="btn btn-pri" onclick="goTo('endpoints')">Continue to Endpoints →</button>
+                <button class="btn btn-sec" onclick="goTo('identity')">&larr; Back</button>
+                <button class="btn btn-pri" onclick="goTo('endpoints')">Continue to Endpoints &rarr;</button>
             </div>
         </section>
 
@@ -425,15 +1044,15 @@
             <div class="card" data-q="ep-4">
                 <label class="q-label"><span class="q-num">4</span><span class="q-text">If CrowdStrike detected a compromise, how would we (your MDR provider) know?</span></label>
                 <div class="opts">
-                    <label class="opt"><input type="radio" name="cs-escalation" value="auto"><span class="opt-mark"></span><span class="opt-text">Automatic - you'd get notified somehow</span></label>
-                    <label class="opt"><input type="radio" name="cs-escalation" value="manual"><span class="opt-mark"></span><span class="opt-text">Manual - we'd have to tell you</span></label>
-                    <label class="opt"><input type="radio" name="cs-escalation" value="no-path"><span class="opt-mark"></span><span class="opt-text">Currently no path - you wouldn't know</span></label>
+                    <label class="opt"><input type="radio" name="cs-escalation" value="auto"><span class="opt-mark"></span><span class="opt-text">Automatic — you'd get notified somehow</span></label>
+                    <label class="opt"><input type="radio" name="cs-escalation" value="manual"><span class="opt-mark"></span><span class="opt-text">Manual — we'd have to tell you</span></label>
+                    <label class="opt"><input type="radio" name="cs-escalation" value="no-path"><span class="opt-mark"></span><span class="opt-text">Currently no path — you wouldn't know</span></label>
                 </div>
             </div>
 
             <div class="nav-btns">
-                <button class="btn btn-sec" onclick="goTo('platform')">← Back</button>
-                <button class="btn btn-pri" onclick="goTo('risk')">Continue to Risk →</button>
+                <button class="btn btn-sec" onclick="goTo('platform')">&larr; Back</button>
+                <button class="btn btn-pri" onclick="goTo('risk')">Continue to Risk &rarr;</button>
             </div>
         </section>
 
@@ -452,7 +1071,7 @@
             <div class="card" data-q="risk-2">
                 <label class="q-label"><span class="q-num">2</span><span class="q-text">For each threat scenario, how confident are you that you'd detect it today?</span></label>
                 <table class="matrix">
-                    <tr><th>Scenario</th><th>Confidence</th></tr>
+                    <tr><th>Scenario</th><th style="width: 160px;">Confidence</th></tr>
                     <tr><td>Compromised customer API key sending phishing at scale</td><td><select name="detect-api"><option value="">Select...</option><option value="high">High</option><option value="medium">Medium</option><option value="low">Low</option><option value="none">None</option></select></td></tr>
                     <tr><td>Insider accessing customer message data</td><td><select name="detect-insider"><option value="">Select...</option><option value="high">High</option><option value="medium">Medium</option><option value="low">Low</option><option value="none">None</option></select></td></tr>
                     <tr><td>Attacker pivoting from acquired infrastructure to core platform</td><td><select name="detect-pivot"><option value="">Select...</option><option value="high">High</option><option value="medium">Medium</option><option value="low">Low</option><option value="none">None</option></select></td></tr>
@@ -484,8 +1103,8 @@
             </div>
 
             <div class="nav-btns">
-                <button class="btn btn-sec" onclick="goTo('endpoints')">← Back</button>
-                <button class="btn btn-pri" onclick="goTo('operations')">Continue to Operations →</button>
+                <button class="btn btn-sec" onclick="goTo('endpoints')">&larr; Back</button>
+                <button class="btn btn-pri" onclick="goTo('operations')">Continue to Operations &rarr;</button>
             </div>
         </section>
 
@@ -501,8 +1120,8 @@
                 <div class="opts">
                     <label class="opt"><input type="radio" name="capacity" value="dedicated"><span class="opt-mark"></span><span class="opt-text">We have dedicated time for security</span></label>
                     <label class="opt"><input type="radio" name="capacity" value="some"><span class="opt-mark"></span><span class="opt-text">A few hours per week when things are quiet</span></label>
-                    <label class="opt"><input type="radio" name="capacity" value="reactive"><span class="opt-mark"></span><span class="opt-text">Mostly reactive - only when something happens</span></label>
-                    <label class="opt"><input type="radio" name="capacity" value="none"><span class="opt-mark"></span><span class="opt-text">Very limited - keeping lights on takes everything</span></label>
+                    <label class="opt"><input type="radio" name="capacity" value="reactive"><span class="opt-mark"></span><span class="opt-text">Mostly reactive — only when something happens</span></label>
+                    <label class="opt"><input type="radio" name="capacity" value="none"><span class="opt-mark"></span><span class="opt-text">Very limited — keeping lights on takes everything</span></label>
                 </div>
             </div>
 
@@ -511,8 +1130,8 @@
                 <div class="opts">
                     <label class="opt"><input type="radio" name="alert-capacity" value="yes"><span class="opt-mark"></span><span class="opt-text">Yes, we can handle more alerts</span></label>
                     <label class="opt"><input type="radio" name="alert-capacity" value="high-only"><span class="opt-mark"></span><span class="opt-text">Only if they're high priority and actionable</span></label>
-                    <label class="opt"><input type="radio" name="alert-capacity" value="struggle"><span class="opt-mark"></span><span class="opt-text">We'd struggle - already have alert fatigue</span></label>
-                    <label class="opt"><input type="radio" name="alert-capacity" value="no"><span class="opt-mark"></span><span class="opt-text">No - need you to handle more on your side</span></label>
+                    <label class="opt"><input type="radio" name="alert-capacity" value="struggle"><span class="opt-mark"></span><span class="opt-text">We'd struggle — already have alert fatigue</span></label>
+                    <label class="opt"><input type="radio" name="alert-capacity" value="no"><span class="opt-mark"></span><span class="opt-text">No — need you to handle more on your side</span></label>
                 </div>
             </div>
 
@@ -522,7 +1141,7 @@
             </div>
 
             <div class="card" data-q="ops-4">
-                <label class="q-label"><span class="q-num">4</span><span class="q-text">What's changing in the next 6-12 months that will affect the environment?</span></label>
+                <label class="q-label"><span class="q-num">4</span><span class="q-text">What's changing in the next 6–12 months that will affect the environment?</span></label>
                 <div class="opts">
                     <label class="opt"><input type="checkbox" name="changes" value="decommission"><span class="opt-mark check"></span><span class="opt-text">Decommissioning acquired platforms</span></label>
                     <label class="opt"><input type="checkbox" name="changes" value="new-regions"><span class="opt-mark check"></span><span class="opt-text">New regional deployments</span></label>
@@ -538,23 +1157,27 @@
             </div>
 
             <div class="nav-btns">
-                <button class="btn btn-sec" onclick="goTo('risk')">← Back</button>
-                <button class="btn btn-pri" onclick="submitForm()">Submit Responses ✓</button>
+                <button class="btn btn-sec" onclick="goTo('risk')">&larr; Back</button>
+                <button class="btn btn-pri" onclick="submitForm()">Submit Responses</button>
             </div>
         </section>
 
         <!-- COMPLETE -->
         <section class="section" id="s-complete">
             <div class="complete">
-                <div class="complete-icon">✓</div>
-                <h2>Thank You!</h2>
-                <p style="color:var(--text-dim); margin-bottom:2rem;">Your responses have been submitted. We'll review and come back with findings and recommendations.</p>
+                <div class="complete-icon">&#10003;</div>
+                <h2>Thank You</h2>
+                <p style="color:var(--text-dim); margin-bottom:2rem; max-width:440px; margin-left:auto; margin-right:auto;">Your responses have been submitted. We'll review and come back with findings and recommendations.</p>
                 <button class="btn btn-pri" onclick="downloadResponses()">Download a Copy</button>
             </div>
         </section>
+
+        <footer class="footer">
+            <p class="footer-text">Powered by <a href="https://www.armor.com" target="_blank">Armor</a> &middot; MDR Discovery Workshop</p>
+        </footer>
     </main>
 
-    <div class="save-toast" id="toast"><span>💾</span> Saved</div>
+    <div class="save-toast" id="toast"><span style="font-size:0.9rem;">&#10003;</span> Auto-saved</div>
 
     <script>
         const sections = ['acquisitions','infrastructure','identity','platform','endpoints','risk','operations'];
